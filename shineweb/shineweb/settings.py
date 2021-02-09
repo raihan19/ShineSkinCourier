@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'ordersite.apps.OrdersiteConfig',
     'registrationUser.apps.RegistrationuserConfig',
+    'frontpages.apps.FrontpagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
