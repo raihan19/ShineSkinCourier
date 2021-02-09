@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import regProfile
+from .models import regProfile, Profile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -23,3 +23,17 @@ class regProfileForm(forms.ModelForm):
     class Meta:
         model = regProfile
         fields = ['your_name', 'contact_no', 'company_name', 'company_address']
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
