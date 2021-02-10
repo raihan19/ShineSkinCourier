@@ -1,0 +1,15 @@
+{% extends "registrationUser/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div id='map' style='width: 700px; height: 450px;'>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoicmFpaGFuMTkiLCJhIjoiY2trempya3o5MXduZTJwanVhMnVoZm84cyJ9.FSde2izZt8HgVANBdJXAxQ';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [90.4125, 23.8103],
+        zoom: 5
+      });
+    </script>
+  </div>
+{% endblock content %}

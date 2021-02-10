@@ -25,6 +25,7 @@ urlpatterns = [
     path('register/', reg_views.register, name='register'),
     path('profile/', reg_views.profile, name='profile'),
     path('updateprofile/', reg_views.profileupdate, name='update-profile'),
+    path('viewmap/', reg_views.mapview, name='view-map'),
     path('login/', auth_views.LoginView.as_view(template_name='registrationUser/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registrationUser/logout.html'), name='logout'),
     path('', include('frontpages.urls')),

@@ -21,6 +21,9 @@ def register(request):
         reg_form = regProfileForm()
     return render(request, 'registrationUser/register.html', {'form': form, 'reg_form': reg_form})
 
+@login_required
+def mapview(request):
+    return render(request, 'registrationUser/add_map.html')
 
 @login_required
 def profile(request):
