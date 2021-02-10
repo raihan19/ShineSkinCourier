@@ -13,9 +13,24 @@
     <link rel="stylesheet" type="text/css" href="{% static 'registrationUser/main.css' %}">
     <title>Shine-skin</title>
 
+    <!--For map-->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        @media (max-width: 700px){
+          .newhw{
+            height: 300px;
+            width: 405px;
+          }
+        }
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+        @media (min-width: 700px){
+          .newhw{
+            height: 450px;
+            width: 700px;
+          }
+        }
+    </style>
 
 <!--    {% if title %}-->
 <!--        <title>Django Blog - {{ title }}</title>-->
