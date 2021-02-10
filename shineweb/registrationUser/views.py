@@ -35,7 +35,7 @@ def profileupdate(request):
                                    request.FILES,
                                    instance=request.user.profile)
         r_form = regProfileForm(request.POST, instance=request.user.regprofile)
-        if u_form.is_valid() and r_form.is_valid():
+        if u_form.is_valid() and p_form.is_valid() and r_form.is_valid():
             u_form.save()
             p_form.save()
             r_form.save()
