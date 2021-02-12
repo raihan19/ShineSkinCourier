@@ -28,6 +28,7 @@ urlpatterns = [
     path('viewmap/', reg_views.mapview, name='view-map'),
     path('login/', auth_views.LoginView.as_view(template_name='registrationUser/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='registrationUser/logout.html'), name='logout'),
+    path('deliveryitems/', include('ordersite.urls')),
     path('', include('frontpages.urls')),
 ]
 

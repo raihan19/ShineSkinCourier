@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import delivery_status
+from .models import Order_info
 
 # Register your models here.
-admin.site.register(delivery_status)
+admin.site.register(Order_info)

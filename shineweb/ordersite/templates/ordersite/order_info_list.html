@@ -1,0 +1,16 @@
+{% extends "registrationUser/base.html" %}
+{% block content %}
+    {% for order in orders %}
+        <article class="media content-section">
+<!--          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">-->
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ order.first_name }}</a>
+              <small class="text-muted">{{ order.last_name }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'order-detail' order.id %}">{{ order.address }}</a></h2>
+            <p class="article-content">{{ order.contact_no }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
