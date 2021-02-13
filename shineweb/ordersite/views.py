@@ -22,6 +22,7 @@ class OrderListView(LoginRequiredMixin, ListView):
     template_name = 'ordersite/order_info_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'orders'
     # ordering = ['-date_posted']
+    paginate_by = 5
 
     def get_queryset(self):
         queryset = Order_info.objects.filter(merchant=self.request.user)
