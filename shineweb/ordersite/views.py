@@ -8,6 +8,7 @@ from django.views.generic import (
     DeleteView
 )
 from .models import Order_info
+from .forms import OrderForm
 
 def orderinfo(request):
     context = {
@@ -36,10 +37,17 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
-    model = Order_info
-    fields = ['first_name', 'last_name', 'address', 'contact_no',
-              'd_instruction', 'd_opt', 'service_charge',
-              'd_area']
+    form_class = OrderForm
+    template_name = 'ordersite/order_info_form.html'
+
+    # def get_initial(self):
+    #     order = get_object_or_404(Order_info, pk=self.kwargs['order_info_id'])
+    #     self.initial.update({
+    #         'merchant': self.request.user.id,
+    #         'service_charge': order.service_charge,
+    #     })
+    #     return super(OrderCreateView, self).get_initial()
+
 
     def form_valid(self, form):
         form.instance.merchant = self.request.user
@@ -48,9 +56,8 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Order_info
-    fields = ['first_name', 'last_name', 'address', 'contact_no',
-              'd_instruction', 'd_opt', 'service_charge',
-              'd_area']
+    form_class = OrderForm
+    template_name = 'ordersite/order_info_form.html'
 
     def form_valid(self, form):
         form.instance.merchant = self.request.user
