@@ -4,20 +4,27 @@ from django.urls import reverse
 
 # Create your models here.
 class Order_info_delivery(models.Model):
-    d_opt = [
-        ('InDh', 'Inside Dhaka (ID: 241)'),
-        ('DhSub', 'Dhaka Sub (ID: 242)'),
-        ('OutDh', 'Outside Dhaka HD (ID: 243)'),
-    ]
-    delivery_option = models.CharField(
-        max_length=30,
-        choices=d_opt,
-        default='Please select',
-    )
+    # d_opt = [
+    #     ('InDh', 'Inside Dhaka (ID: 241)'),
+    #     ('DhSub', 'Dhaka Sub (ID: 242)'),
+    #     ('OutDh', 'Outside Dhaka HD (ID: 243)'),
+    # ]
+    # delivery_option = models.CharField(
+    #     max_length=30,
+    #     choices=d_opt,
+    #     default='Please select',
+    # )
+    delivery_option = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.delivery_option
 
 class Order_info_price(models.Model):
     delivery_option = models.ForeignKey(Order_info_delivery, on_delete=models.CASCADE)
-    service_charge = models.IntegerField(default=55)
+    service_charge = models.CharField(max_length=5)
+
+    def __str__(self):
+        return str(self.service_charge)
 
 class Order_info(models.Model):
     first_name = models.CharField(max_length=50)

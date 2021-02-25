@@ -7,8 +7,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Order_info
+from .models import Order_info, Order_info_price
 from .forms import OrderForm
+
+def load_prices(request):
+    delivery_option_id = request.GET.get('delivery_option')
+    prices = Order_info_price.objects.filter(delivery_option_id=delivery_option_id).order_by('service_charge')
+    return render(request, 'ordersite/price_dropdown_list_options.html', {'prices': prices})
 
 def orderinfo(request):
     context = {
