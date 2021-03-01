@@ -7,44 +7,44 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Order_info, Order_info_price
+from accounts.models import Order, Order_price
 from .forms import OrderForm
 
 def load_prices(request):
     delivery_option_id = request.GET.get('delivery_option')
-    prices = Order_info_price.objects.filter(delivery_option_id=delivery_option_id).order_by('service_charge')
+    prices = Order_price.objects.filter(delivery_option_id=delivery_option_id).order_by('service_charge')
     return render(request, 'ordersite/price_dropdown_list_options.html', {'prices': prices})
 
 def orderinfo(request):
     context = {
-        'orders': Order_info.objects.all()
+        'orders': Order.objects.all()
     }
-    return render(request, 'ordersite/order_info_list.html', context)
+    return render(request, 'ordersite/order_list.html', context)
 
 
 class OrderListView(LoginRequiredMixin, ListView):
-    model = Order_info
-    template_name = 'ordersite/order_info_list.html'  # <app>/<model>_<viewtype>.html
+    model = Order
+    template_name = 'ordersite/order_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'orders'
     # ordering = ['-date_posted']
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = Order_info.objects.filter(merchant=self.request.user)
+        queryset = Order.objects.filter(merchant=self.request.user)
         return queryset
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-    model = Order_info
+    model = Order
 
     def get_queryset(self):
-        queryset = Order_info.objects.filter(merchant=self.request.user)
+        queryset = Order.objects.filter(merchant=self.request.user)
         return queryset
 
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     form_class = OrderForm
-    template_name = 'ordersite/order_info_form.html'
+    template_name = 'ordersite/order_form.html'
 
     # def get_initial(self):
     #     order = get_object_or_404(Order_info, pk=self.kwargs['order_info_id'])
@@ -61,9 +61,9 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
 
 class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Order_info
+    model = Order
     form_class = OrderForm
-    template_name = 'ordersite/order_info_form.html'
+    template_name = 'ordersite/order_form.html'
 
     def form_valid(self, form):
         form.instance.merchant = self.request.user
@@ -77,7 +77,7 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 
 class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Order_info
+    model = Order
     success_url = '/'
 
     def test_func(self):
