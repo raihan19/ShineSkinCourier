@@ -12,7 +12,7 @@ from django.contrib.auth.models import Group
 
 # Create your views here.
 from .models import *
-from .forms import OrderForm, CreateUserForm, CustomerForm
+# from .forms import OrderForm, CreateUserForm, CustomerForm
 from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only, new_allowed_users
 
@@ -61,9 +61,9 @@ def logoutUser(request):
 @admin_only
 def home(request):
     orders = Order.objects.all()
-    customers = Customer.objects.all()
+    customers = Order.objects.all()
 
-    total_customers = customers.count()
+    # total_customers = customers.count()
 
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()
@@ -86,15 +86,14 @@ def products(request):
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
-def customer(request, pk_test):
-    customer = Customer.objects.get(id=pk_test)
+def customer(request, pk):
+    customer = Order.objects.get(id=pk)
+    orders = Order.objects.all()
+    total_orders = orders.count()
 
-    orders = customer.order_set.all()
-    order_count = orders.count()
+    orderFilter = OrderFilter(request.GET, queryset=orders)
+    orders = orderFilter.qs
 
-    myFilter = OrderFilter(request.GET, queryset=orders)
-    orders = myFilter.qs
-
-    context = {'customer': customer, 'orders': orders, 'order_count': order_count,
-               'myFilter': myFilter}
+    context = {'customer': customer, 'orders': orders, 'total_orders': total_orders,
+               'filter': orderFilter}
     return render(request, 'accounts/customer.html', context)
