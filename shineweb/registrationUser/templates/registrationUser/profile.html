@@ -2,23 +2,26 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-      </div>
-      <div class="media">
-          <div class="media-body">
-              <h2 class="account-heading">Welcome {{ user.username }}!</h2>
-              <p class="text-secondary">Name: {{ user.regprofile.your_name }}</p>
-              <p class="text-secondary">Email: {{ user.email }}</p>
-              <p class="text-secondary">Contact number: {{ user.regprofile.contact_no }}</p>
-              <p class="text-secondary">Company name: {{ user.regprofile.company_name }}</p>
-              <p class="text-secondary">Company address: {{ user.regprofile.company_address }}</p>
-            </div>
-      </div>
+        <h2 style="text-align:center">User Profile</h2>
+        <div class="pcard">
+          <img src="{{ user.profile.image.url }}">
+          <h4>Username: {{ user.username }}</h4>
+          <p class="ptitle">Name: {{ user.regprofile.your_name }}</p>
+            <p class="ptitle">Email: {{ user.email }}</p>
+            <p class="ptitle">Contact number: {{ user.regprofile.contact_no }}</p>
+            <p class="ptitle">Company name: {{ user.regprofile.company_name }}</p>
+            <p class="ptitle">Company address: {{ user.regprofile.company_address }}</p>
+          <div style="margin: 24px 0;">
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-facebook"></i></a>
+          </div>
+          <p><button><a class="ml-2" href="{% url 'update-profile' %}">Update my profile</a></button></p>
+        </div>
         <!-- FORM HERE -->
         <div class="border-top pt-3">
             <small class="text-muted">
-                <a class="ml-2" href="{% url 'update-profile' %}">Update my profile</a>
                 <a class="ml-2" href="{% url 'view-map' %}">View location on Map</a>
             </small>
         </div>
