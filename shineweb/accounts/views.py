@@ -79,7 +79,7 @@ def home(request):
 @login_required(login_url='login')
 @new_allowed_users(allowed_roles=['admin'])
 def products(request):
-    products = Product.objects.all()
+    products = Order.objects.all()
 
     return render(request, 'accounts/products.html', {'products': products})
 

@@ -63,7 +63,14 @@ class Order(models.Model):
 		('Accessories', 'Accessories'),
 	)
 
+	PAYMENT_CHOICE = (
+		('Bank', 'Bank'),
+		('bKash', 'bKash'),
+	)
+
 	merchant = models.ForeignKey(User, on_delete=models.CASCADE)
+	merchant_payment_method = models.CharField(max_length=200, null=True, choices=PAYMENT_CHOICE)
+	way_of_payment = models.CharField(max_length=50, default='')
 	customer_name = models.CharField(max_length=200, null=True)
 	customer_phone = models.CharField(max_length=200, null=True)
 	customer_email = models.CharField(max_length=200, null=True)

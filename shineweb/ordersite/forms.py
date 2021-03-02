@@ -8,6 +8,7 @@ class OrderForm(forms.ModelForm):
         # self.fields['service_charge'].disabled = True
         # super().__init__(*args, **kwargs)
         self.fields['service_charge'].queryset = Order_price.objects.none()
+        self.fields['way_of_payment'].widget.attrs['placeholder'] = 'Enter bank account number or bKash merchant number'
 
         if 'delivery_option' in self.data:
             try:
@@ -25,3 +26,4 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = '__all__'
         exclude = ['merchant']
+
