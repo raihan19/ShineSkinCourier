@@ -4,10 +4,17 @@ from PIL import Image
 
 # Create your models here.
 class regProfile(models.Model):
+    PAYMENT_CHOICE = (
+        ('Bank', 'Bank'),
+        ('bKash', 'bKash'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     your_name = models.CharField(max_length=100, default='')
     contact_no = models.CharField(max_length=11)
     company_name = models.CharField(max_length=100)
+    payment_method = models.CharField(max_length=200, null=True, choices=PAYMENT_CHOICE)
+    way_of_payment = models.CharField(max_length=50, default='')
     company_address = models.TextField()
 
     def __str__(self):

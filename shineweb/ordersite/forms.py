@@ -8,7 +8,12 @@ class OrderForm(forms.ModelForm):
         # self.fields['service_charge'].disabled = True
         # super().__init__(*args, **kwargs)
         self.fields['service_charge'].queryset = Order_price.objects.none()
-        self.fields['way_of_payment'].widget.attrs['placeholder'] = 'Enter bank account number or bKash merchant number'
+        self.fields['customer_email'].required = False
+        self.fields['product_name'].required = False
+        self.fields['product_price'].required = False
+        self.fields['product_category'].required = False
+        self.fields['product_description'].required = False
+        self.fields['delivery_instruction'].required = False
 
         if 'delivery_option' in self.data:
             try:

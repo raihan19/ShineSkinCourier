@@ -20,9 +20,13 @@ class UserRegisterForm(UserCreationForm):
         return user
 
 class regProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(regProfileForm, self).__init__(*args, **kwargs)
+        self.fields['way_of_payment'].widget.attrs['placeholder'] = 'Enter bank account number or bKash merchant number'
+
     class Meta:
         model = regProfile
-        fields = ['your_name', 'contact_no', 'company_name', 'company_address']
+        fields = ['your_name', 'contact_no', 'company_name', 'company_address', 'payment_method', 'way_of_payment']
 
 
 class UserUpdateForm(forms.ModelForm):
