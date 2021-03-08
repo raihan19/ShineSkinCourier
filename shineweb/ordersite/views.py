@@ -36,6 +36,7 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
+    template_name = 'ordersite/order_detail.html'
 
     def get_queryset(self):
         queryset = Order.objects.filter(merchant=self.request.user)
@@ -78,6 +79,7 @@ class OrderUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Order
+    template_name = 'ordersite/order_confirm_delete.html'
     success_url = '/'
 
     def test_func(self):

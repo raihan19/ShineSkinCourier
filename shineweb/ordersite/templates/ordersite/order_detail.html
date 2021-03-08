@@ -4,10 +4,16 @@
 <!--    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">-->
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ object.first_name }}</a>
-        <small class="text-muted">{{ object.last_name }}</small>
-        <h2 class="article-title">{{ object.contact_no }}</h2>
-      <p class="article-content">{{ object.address }}</p>
+        <h2 style="text-align:center">Customer and Product Detail</h2>
+        <div class="card">
+          <p class="price">Customer name: {{ object.customer_name }}
+          <p class="price">Customer email: {{ object.customer_email }}</p>
+          <p class="price">Customer phone: {{ object.customer_phone }}</p>
+          <p class="price">Product name: {{ object.product_name }}
+          <p class="price">Product price: ৳{{object.product_price}}</p>
+          <p class="price">Amount: ৳{{object.amount}}</p>
+          <p><button>Download Detail</button></p>
+        </div>
         {% if object.merchant == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'order-update' object.id %}">Update</a>

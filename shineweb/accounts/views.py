@@ -101,6 +101,8 @@ def customer(request, pk):
     return render(request, 'accounts/customer.html', context)
 
 
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
 def export_order_csv(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="orders.csv"'
