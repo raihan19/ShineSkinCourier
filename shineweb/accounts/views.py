@@ -15,6 +15,8 @@ from .models import *
 # from .forms import OrderForm, CreateUserForm, CustomerForm
 from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only, new_allowed_users
+import csv
+from django.http import HttpResponse
 
 
 # @unauthenticated_user
@@ -97,3 +99,27 @@ def customer(request, pk):
     context = {'customer': customer, 'orders': orders, 'total_orders': total_orders,
                'filter': orderFilter}
     return render(request, 'accounts/customer.html', context)
+
+
+def export_order_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="orders.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Merchant', 'Customer name',
+                     'Customer phone', 'Customer email', 'Product name',
+                     'Product price', 'Product category',
+                     'Product description', 'Product weight', 'Amount',
+                     'Date created', 'Status', 'Note', 'Delivery address',
+                     'Delivery instruction', 'Delivery area'])
+
+    orders = Order.objects.all().values_list('merchant__username', 'customer_name',
+                                             'customer_phone', 'customer_email', 'product_name',
+                                             'product_price', 'product_category__category',
+                                             'product_description', 'product_weight', 'amount',
+                                             'date_created', 'status', 'note', 'delivery_address',
+                                             'delivery_instruction', 'delivery_area__delivery_area')
+    for order in orders:
+        writer.writerow(order)
+
+    return response

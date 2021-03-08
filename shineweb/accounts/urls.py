@@ -9,4 +9,5 @@ urlpatterns = [
     # path('register/', views.registerPage, name="register"),
     path('adminlogin/', views.loginPage, name="adminlogin"),
     path('adminlogout/', views.logoutUser, name="adminlogout"),
+    path('export/csv/', views.export_order_csv, name='export_orders_csv'),
 ]
