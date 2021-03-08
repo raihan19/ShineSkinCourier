@@ -49,6 +49,7 @@ from django.urls import reverse
 # 	def __str__(self):
 # 		return self.name
 
+
 class All_area(models.Model):
 	delivery_area = models.CharField(max_length=20)
 
@@ -56,17 +57,19 @@ class All_area(models.Model):
 		return self.delivery_area
 
 
+class Product_category(models.Model):
+	category = models.CharField(max_length=20)
+
+	def __str__(self):
+		return self.category
+
+
 class Order(models.Model):
 	STATUS = (
 			('Pending', 'Pending'),
-			('Out for delivery', 'Out for delivery'),
+			('Returned', 'Returned'),
 			('Delivered', 'Delivered'),
 			)
-
-	CATEGORY = (
-		('Phone', 'Phone'),
-		('Accessories', 'Accessories'),
-	)
 
 	merchant = models.ForeignKey(User, on_delete=models.CASCADE)
 	customer_name = models.CharField(max_length=200, null=True)
@@ -74,7 +77,7 @@ class Order(models.Model):
 	customer_email = models.CharField(max_length=200, null=True)
 	product_name = models.CharField(max_length=200, null=True)
 	product_price = models.FloatField(null=True)
-	product_category = models.CharField(max_length=200, null=True, choices=CATEGORY)
+	product_category = models.ForeignKey(Product_category, on_delete=models.SET_NULL, null=True)
 	product_description = models.TextField(default='')
 	# delivery_option = models.ForeignKey(Order_delivery, on_delete=models.SET_NULL, null=True)
 	# service_charge = models.ForeignKey(Order_price, on_delete=models.SET_NULL, null=True)
@@ -82,6 +85,7 @@ class Order(models.Model):
 	amount = models.CharField(max_length=15, default='To be assigned')
 	date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS)
+	note = models.CharField(max_length=1000, null=True)
 	delivery_address = models.TextField(default='')
 	delivery_instruction = models.TextField(default='')
 	delivery_area = models.ForeignKey(All_area, on_delete=models.SET_NULL, null=True)
