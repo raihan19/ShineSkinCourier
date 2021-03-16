@@ -10,4 +10,4 @@ class OrderFilter(django_filters.FilterSet):
 
 	class Meta:
 		model = Order
-		fields = ['customer_name', 'product_name', 'date_created', 'status']
+		fields = ['customer_name', 'product_name', 'status']
