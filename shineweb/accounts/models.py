@@ -1,7 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+import string
+import random
+import datetime
 # Create your models here.
+
+def random_choice():
+	date_object = ''.join(str(datetime.date.today()).split('-'))
+	alphabet = string.ascii_lowercase + string.digits
+	return date_object + '-' + ''.join(random.choices(alphabet, k=8))
 
 # class Customer(models.Model):
 # 	name = models.CharField(max_length=200, null=True)
@@ -72,6 +80,7 @@ class Order(models.Model):
 			)
 
 	merchant = models.ForeignKey(User, on_delete=models.CASCADE)
+	id = models.CharField(primary_key=True, max_length=20, default=random_choice, editable=False)
 	customer_name = models.CharField(max_length=200, null=True)
 	customer_phone = models.CharField(max_length=200, null=True)
 	customer_email = models.CharField(max_length=200, null=True)

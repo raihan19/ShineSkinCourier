@@ -12,6 +12,7 @@
           <p class="price">Product name: {{ object.product_name }}
           <p class="price">Product price: ৳{{object.product_price}}</p>
           <p class="price">Amount: ৳{{object.amount}}</p>
+          <p class="price">Order ID: {{object.id}}</p>
           <p><button>Download Detail</button></p>
         </div>
         {% if object.merchant == user %}

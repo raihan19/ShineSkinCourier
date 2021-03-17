@@ -108,14 +108,14 @@ def export_order_csv(request):
     response['Content-Disposition'] = 'attachment; filename="orders.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Merchant', 'Customer name',
+    writer.writerow(['Merchant', 'Order ID', 'Customer name',
                      'Customer phone', 'Customer email', 'Product name',
                      'Product price', 'Product category',
                      'Product description', 'Product weight', 'Amount',
                      'Date created', 'Status', 'Note', 'Delivery address',
                      'Delivery instruction', 'Delivery area'])
 
-    orders = Order.objects.all().values_list('merchant__username', 'customer_name',
+    orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
                                              'customer_phone', 'customer_email', 'product_name',
                                              'product_price', 'product_category__category',
                                              'product_description', 'product_weight', 'amount',
