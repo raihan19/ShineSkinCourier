@@ -89,14 +89,15 @@ def products(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
+    global qorders
     customer = Order.objects.get(id=pk)
-    orders = Order.objects.all()
-    total_orders = orders.count()
+    qorders = Order.objects.all()
+    total_orders = qorders.count()
 
-    orderFilter = OrderFilter(request.GET, queryset=orders)
-    orders = orderFilter.qs
+    orderFilter = OrderFilter(request.GET, queryset=qorders)
+    qorders = orderFilter.qs
 
-    context = {'customer': customer, 'orders': orders, 'total_orders': total_orders,
+    context = {'customer': customer, 'orders': qorders, 'total_orders': total_orders,
                'filter': orderFilter}
     return render(request, 'accounts/customer.html', context)
 
@@ -115,13 +116,18 @@ def export_order_csv(request):
                      'Date created', 'Status', 'Note', 'Delivery address',
                      'Delivery instruction', 'Delivery area'])
 
-    orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
-                                             'customer_phone', 'customer_email', 'product_name',
-                                             'product_price', 'product_category__category',
-                                             'product_description', 'product_weight', 'amount',
-                                             'date_created', 'status', 'note', 'delivery_address',
-                                             'delivery_instruction', 'delivery_area__delivery_area')
-    for order in orders:
+    # orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
+    #                                          'customer_phone', 'customer_email', 'product_name',
+    #                                          'product_price', 'product_category__category',
+    #                                          'product_description', 'product_weight', 'amount',
+    #                                          'date_created', 'status', 'note', 'delivery_address',
+    #                                          'delivery_instruction', 'delivery_area__delivery_area')
+    for order in qorders.values_list('merchant__username', 'id', 'customer_name',
+                                    'customer_phone', 'customer_email', 'product_name',
+                                    'product_price', 'product_category__category',
+                                    'product_description', 'product_weight', 'amount',
+                                    'date_created', 'status', 'note', 'delivery_address',
+                                    'delivery_instruction', 'delivery_area__delivery_area'):
         writer.writerow(order)
 
     return response
