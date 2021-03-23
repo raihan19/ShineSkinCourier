@@ -17,6 +17,7 @@ from .filters import OrderFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only, new_allowed_users
 import csv
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # @unauthenticated_user
@@ -136,6 +137,20 @@ def export_order_csv(request):
 @login_required(login_url='login')
 @new_allowed_users(allowed_roles=['admin'])
 def transaction_history(request):
-    t_history = Order.objects.all()
+    search_term = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        t_history = Order.objects.all().filter(id=search_term)
+    else:
+        t_history = Order.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(t_history, 5)
+    try:
+        t_history = paginator.page(page)
+    except PageNotAnInteger:
+        t_history = paginator.page(1)
+    except EmptyPage:
+        t_history = paginator.page(paginator.num_pages)
+    return render(request, 'accounts/transaction_history.html', {'t_history': t_history, 'search_term': search_term})
 
-    return render(request, 'accounts/transaction_history.html', {'t_history': t_history})
+

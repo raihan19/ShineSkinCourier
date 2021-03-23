@@ -7,6 +7,10 @@
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Transaction history</h5>
+			<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" >
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
 		</div>
 		<div class="card card-body">
 			<table class="table">
@@ -14,7 +18,7 @@
 					<th>Order ID</th>
 					<th>Received from customer</th>
 					<th>Total amount</th>
-					<th>Total received</th>
+					<th>Total sent</th>
 					<th>Due</th>
 				</tr>
 				{% for th in t_history %}
@@ -31,5 +35,25 @@
 	</div>
 	
 </div>
-
+	{% if t_history.has_other_pages %}
+	  <ul class="pagination">
+		{% if t_history.has_previous %}
+		  <li><a href="?page={{ t_history.previous_page_number }}">&laquo;</a></li>
+		{% else %}
+		  <li class="disabled"><span>&laquo;</span></li>
+		{% endif %}
+		{% for i in t_history.paginator.page_range %}
+		  {% if t_history.number == i %}
+			<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+		  {% else %}
+			<li><a href="?page={{ i }}">{{ i }}</a></li>
+		  {% endif %}
+		{% endfor %}
+		{% if t_history.has_next %}
+		  <li><a href="?page={{ t_history.next_page_number }}">&raquo;</a></li>
+		{% else %}
+		  <li class="disabled"><span>&raquo;</span></li>
+		{% endif %}
+	  </ul>
+	{% endif %}
 {% endblock content %}
