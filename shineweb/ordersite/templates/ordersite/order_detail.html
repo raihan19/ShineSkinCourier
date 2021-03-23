@@ -12,7 +12,16 @@
           <p class="price">Customer phone: {{ object.customer_phone }}</p>
           <p class="price">Product name: {{ object.product_name }}
           <p class="price">Product price: ৳{{object.product_price}}</p>
-          <p class="price">Amount: ৳{{object.amount}}</p>
+          <p class="price">Product category: {{object.product_category}}</p>
+          <p class="price">Product description: {{object.product_description}}</p>
+          <p class="price">Product weight: {{object.product_weight}}</p>
+          <p class="price">Date created: {{object.date_created}}</p>
+          <p class="price">Status: {{object.status}}</p>
+          <p class="price">Note: {{object.note}}</p>
+          <p class="price">Delivery address: {{object.delivery_address}}</p>
+          <p class="price">Delivery instruction: {{object.delivery_instruction}}</p>
+          <p class="price">Delivery area: {{object.delivery_area}}</p>
+          <p class="price">Service charge: ৳{{object.amount}}</p>
           <p><button>Download Detail</button></p>
         </div>
         {% if object.merchant == user %}
