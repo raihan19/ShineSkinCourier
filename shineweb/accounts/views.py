@@ -140,11 +140,11 @@ def transaction_history(request):
     search_term = ''
     if 'search' in request.GET:
         search_term = request.GET['search']
-        t_history = Order.objects.all().filter(id=search_term)
+        order_list = Order.objects.all().filter(id=search_term)
     else:
-        t_history = Order.objects.all()
+        order_list = Order.objects.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(t_history, 5)
+    paginator = Paginator(order_list, 5)
     try:
         t_history = paginator.page(page)
     except PageNotAnInteger:
