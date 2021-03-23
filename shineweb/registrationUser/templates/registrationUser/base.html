@@ -140,6 +140,7 @@
               {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'order-create' %}">New Order</a>
                 <a class="nav-item nav-link" href="{% url 'order-list' %}">View Order</a>
+                <a class="nav-item nav-link" href="{% url 'order-transaction-list' %}">View Transaction</a>
                 <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}

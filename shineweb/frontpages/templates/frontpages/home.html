@@ -57,6 +57,7 @@
                                     {% if user.is_authenticated %}
                                         <li><a href="{% url 'order-create' %}">New Order</a></li>
                                         <li><a href="{% url 'order-list' %}">View Order</a></li>
+                                        <li><a class="nav-item nav-link" href="{% url 'order-transaction-list' %}">View Transaction</a></li>
                                     {% endif %}
                                 </ul>
                             <!-- /.navbar-collapse -->

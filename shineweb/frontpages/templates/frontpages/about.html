@@ -43,14 +43,25 @@
                     <div class="col-md-6 col-xs-6 col-md-offset-1 col-sm-7 col-lg-offset-1 col-lg-6 mobMenuCol">
                         <nav class="navbar">
                             <ul class="nav navbar-nav navbar-right menu">
+                                <li class="current-menu-item"><a href="{% url 'frontpages-home' %}">Home</a></li>
                                 <li class="current-menu-item"><a href="{% url 'frontpages-about' %}">About</a></li>
+                                {% if user.is_authenticated %}
+                                        <li class="current-menu-item"><a href="{% url 'order-create' %}">New Order</a></li>
+                                        <li class="current-menu-item"><a href="{% url 'order-list' %}">View Order</a></li>
+                                        <li class="current-menu-item"><a class="nav-item nav-link" href="{% url 'order-transaction-list' %}">View Transaction</a></li>
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>
                     <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">
                         <ul class="nav navbar-nav">
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a href="{% url 'register' %}">Sign Up</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'profile' %}">Profile</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a href="{% url 'login' %}">Login</a></li>
+                                <li><a href="{% url 'register' %}">Sign Up</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

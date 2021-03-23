@@ -4,15 +4,13 @@
 <!--    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">-->
     <div class="media-body">
       <div class="article-metadata">
-        <h2 style="text-align:center">Customer and Product Detail</h2>
+        <h2 style="text-align:center">Transaction History</h2>
         <div class="card">
           <p class="price">Order ID: {{object.id}}</p>
-          <p class="price">Customer name: {{ object.customer_name }}
-          <p class="price">Customer email: {{ object.customer_email }}</p>
-          <p class="price">Customer phone: {{ object.customer_phone }}</p>
-          <p class="price">Product name: {{ object.product_name }}
-          <p class="price">Product price: ৳{{object.product_price}}</p>
-          <p class="price">Amount: ৳{{object.amount}}</p>
+          <p class="price">Received from customer: ৳{{ object.received_from_customer }}
+          <p class="price">Total amount: ৳{{ object.total_amount }}</p>
+          <p class="price">Total received: ৳{{ object.total_received }}</p>
+          <p class="price">Due: ৳{{ object.due }}
           <p><button>Download Detail</button></p>
         </div>
         {% if object.merchant == user %}

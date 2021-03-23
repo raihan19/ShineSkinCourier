@@ -87,3 +87,25 @@ class OrderDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == order.merchant:
             return True
         return False
+
+
+class OrderTransactionListView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'ordersite/order_transaction_list.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'orders'
+    # ordering = ['-date_posted']
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = Order.objects.filter(merchant=self.request.user)
+        return queryset
+
+
+class OrderTransactionHistoryDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = 'ordersite/order_transaction_detail.html'
+
+    def get_queryset(self):
+        queryset = Order.objects.filter(merchant=self.request.user)
+        return queryset
+

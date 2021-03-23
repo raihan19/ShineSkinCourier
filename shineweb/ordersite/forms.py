@@ -30,5 +30,6 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-        exclude = ['merchant', 'status', 'note']
+        exclude = ['merchant', 'status', 'note', 'received_from_customer', 'total_amount',
+                   'total_received', 'due']
 
