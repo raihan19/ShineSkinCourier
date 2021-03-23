@@ -131,3 +131,11 @@ def export_order_csv(request):
         writer.writerow(order)
 
     return response
+
+
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
+def transaction_history(request):
+    t_history = Order.objects.all()
+
+    return render(request, 'accounts/transaction_history.html', {'t_history': t_history})
