@@ -18,6 +18,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only, new_all
 import csv
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import OrderForm
 
 
 # @unauthenticated_user
@@ -84,7 +85,7 @@ def home(request):
 @login_required(login_url='login')
 @new_allowed_users(allowed_roles=['admin'])
 def products(request):
-    products = Order.objects.all()
+    products = Order.objects.all().order_by('-date_created')
     page = request.GET.get('page', 1)
     paginator = Paginator(products, 5)
     try:
@@ -110,7 +111,7 @@ def customer(request, pk):
 @new_allowed_users(allowed_roles=['admin'])
 def order_list_admin(request):
     global qorders
-    qorders = Order.objects.all()
+    qorders = Order.objects.all().order_by('-date_created')
 
     orderFilter = OrderFilter(request.GET, queryset=qorders)
     qorders = orderFilter.qs
@@ -167,9 +168,9 @@ def transaction_history(request):
     search_term = ''
     if 'search' in request.GET:
         search_term = request.GET['search']
-        order_list = Order.objects.all().filter(id=search_term)
+        order_list = Order.objects.all().filter(id=search_term).order_by('-date_created')
     else:
-        order_list = Order.objects.all()
+        order_list = Order.objects.all().order_by('-date_created')
     page = request.GET.get('page', 1)
     paginator = Paginator(order_list, 5)
     try:
@@ -181,3 +182,48 @@ def transaction_history(request):
     return render(request, 'accounts/transaction_history.html', {'t_history': t_history, 'search_term': search_term})
 
 
+# -------------------(CREATE VIEWS) -------------------
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
+def createOrder(request):
+    action = 'create'
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/account/')
+
+    context = {'action': action, 'form': form}
+    return render(request, 'accounts/order_form.html', context)
+
+
+# -------------------(UPDATE VIEWS) -------------------
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def updateOrder(request, pk):
+    action = 'update'
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('/account/customer/' + str(order.id))
+
+    context = {'action': action, 'form': form}
+    return render(request, 'accounts/order_form.html', context)
+
+
+# -------------------(DELETE VIEWS) -------------------
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def deleteOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        customer_url = '/account/'
+        order.delete()
+        return redirect(customer_url)
+
+    return render(request, 'accounts/delete_item.html', {'item': order})
