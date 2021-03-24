@@ -83,7 +83,14 @@ def home(request):
 @new_allowed_users(allowed_roles=['admin'])
 def products(request):
     products = Order.objects.all()
-
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products, 5)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
     return render(request, 'accounts/products.html', {'products': products})
 
 
@@ -106,7 +113,16 @@ def order_list_admin(request):
     orderFilter = OrderFilter(request.GET, queryset=qorders)
     qorders = orderFilter.qs
 
-    context = {'orders': qorders, 'filter': orderFilter}
+    page = request.GET.get('page', 1)
+    paginator = Paginator(qorders, 5)
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+
+    context = {'orders': orders, 'filter': orderFilter}
     return render(request, 'accounts/order_list_admin.html', context)
 
 
