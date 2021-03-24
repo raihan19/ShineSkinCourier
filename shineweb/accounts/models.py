@@ -79,10 +79,10 @@ class Order(models.Model):
 			('Delivered', 'Delivered'),
 			)
 
-	merchant = models.ForeignKey(User, on_delete=models.CASCADE)
+	merchant = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
 	id = models.CharField(primary_key=True, max_length=20, default=random_choice, editable=False)
-	customer_name = models.CharField(max_length=200, null=True)
-	customer_phone = models.CharField(max_length=200, null=True)
+	customer_name = models.CharField(max_length=200, null=True, blank=True)
+	customer_phone = models.CharField(max_length=200, null=True, blank=True)
 	customer_email = models.CharField(max_length=200, null=True, blank=True)
 	product_name = models.CharField(max_length=200, null=True, blank=True)
 	product_price = models.FloatField(null=True, blank=True)
@@ -90,25 +90,24 @@ class Order(models.Model):
 	product_description = models.TextField(default='', blank=True)
 	# delivery_option = models.ForeignKey(Order_delivery, on_delete=models.SET_NULL, null=True)
 	# service_charge = models.ForeignKey(Order_price, on_delete=models.SET_NULL, null=True)
-	product_weight = models.CharField(max_length=10, default='')
-	amount = models.CharField(max_length=15, default='To be assigned', blank=True)
+	product_weight = models.CharField(max_length=10, default='', blank=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS, blank=True)
 	note = models.CharField(max_length=1000, null=True, blank=True)
-	delivery_address = models.TextField(default='')
+	delivery_address = models.TextField(default='', blank=True)
 	delivery_instruction = models.TextField(default='', blank=True)
-	delivery_area = models.ForeignKey(All_area, on_delete=models.SET_NULL, null=True)
-	received_from_customer = models.IntegerField(default=0)
-	total_amount = models.IntegerField(default=0)
-	total_received = models.IntegerField(default=0)
-	due = models.IntegerField(default=0)
+	delivery_area = models.ForeignKey(All_area, on_delete=models.SET_NULL, null=True, blank=True)
+	received_from_customer = models.IntegerField(default=0, blank=True)
+	amount = models.IntegerField(default=0, blank=True)
+	total_received_or_sent = models.IntegerField(default=0, blank=True)
+	due = models.IntegerField(default=0, blank=True)
 
 	def save(self, *args, **kwargs):
-		self.due = self.total_amount - self.total_received
+		self.due = self.received_from_customer - self.amount - self.total_received_or_sent
 		return super(Order, self).save()
 
 	def __str__(self):
-		return str(self.customer_name) + ' ' + str(self.product_name)
+		return str(self.merchant) + ' ' + str(self.id)
 
 	def get_absolute_url(self):
 		return reverse('order-detail', kwargs={'pk': self.pk})

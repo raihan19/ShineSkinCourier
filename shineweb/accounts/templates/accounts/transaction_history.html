@@ -15,18 +15,22 @@
 		<div class="card card-body">
 			<table class="table">
 				<tr>
+					<th>Merchant</th>
+					<th>Customer</th>
 					<th>Order ID</th>
 					<th>Received from customer</th>
-					<th>Total amount</th>
+					<th>Service charge</th>
 					<th>Total sent</th>
 					<th>Due</th>
 				</tr>
 				{% for th in t_history %}
 					<tr>
+						<td>{{th.merchant}}</td>
+						<td>{{th.customer_name}}</td>
 						<td>{{th.id}}</td>
 						<td>৳{{th.received_from_customer}}</td>
-						<td>৳{{th.total_amount}}</td>
-						<td>৳{{th.total_received}}</td>
+						<td>৳{{th.amount}}</td>
+						<td>৳{{th.total_received_or_sent}}</td>
 						<td>৳{{th.due}}</td>
 					</tr>
 				{% endfor %}

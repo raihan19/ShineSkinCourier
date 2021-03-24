@@ -11,4 +11,5 @@ urlpatterns = [
     path('adminlogout/', views.logoutUser, name="adminlogout"),
     path('export/csv/', views.export_order_csv, name='export_orders_csv'),
     path('transaction_history/', views.transaction_history, name="transaction-history"),
+    path('orderlistadmin/', views.order_list_admin, name="order-list-admin"),
 ]

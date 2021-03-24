@@ -8,8 +8,8 @@
         <div class="card">
           <p class="price">Order ID: {{object.id}}</p>
           <p class="price">Received from customer: ৳{{ object.received_from_customer }}
-          <p class="price">Total amount: ৳{{ object.total_amount }}</p>
-          <p class="price">Total received: ৳{{ object.total_received }}</p>
+          <p class="price">Service charge: ৳{{ object.amount }}</p>
+          <p class="price">Total received: ৳{{ object.total_received_or_sent }}</p>
           <p class="price">Due: ৳{{ object.due }}
           <p><button>Download Detail</button></p>
         </div>

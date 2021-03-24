@@ -90,17 +90,24 @@ def products(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
-    global qorders
     customer = Order.objects.get(id=pk)
+    total_orders = customer.due
+
+    context = {'customer': customer, 'total_orders': total_orders,}
+    return render(request, 'accounts/customer.html', context)
+
+
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
+def order_list_admin(request):
+    global qorders
     qorders = Order.objects.all()
-    total_orders = qorders.count()
 
     orderFilter = OrderFilter(request.GET, queryset=qorders)
     qorders = orderFilter.qs
 
-    context = {'customer': customer, 'orders': qorders, 'total_orders': total_orders,
-               'filter': orderFilter}
-    return render(request, 'accounts/customer.html', context)
+    context = {'orders': qorders, 'filter': orderFilter}
+    return render(request, 'accounts/order_list_admin.html', context)
 
 
 @login_required(login_url='login')
@@ -113,7 +120,8 @@ def export_order_csv(request):
     writer.writerow(['Merchant', 'Order ID', 'Customer name',
                      'Customer phone', 'Customer email', 'Product name',
                      'Product price', 'Product category',
-                     'Product description', 'Product weight', 'Amount',
+                     'Product description', 'Product weight', 'Service charge',
+                     'Total sent', 'Received from customer', 'Due',
                      'Date created', 'Status', 'Note', 'Delivery address',
                      'Delivery instruction', 'Delivery area'])
 
@@ -127,6 +135,7 @@ def export_order_csv(request):
                                     'customer_phone', 'customer_email', 'product_name',
                                     'product_price', 'product_category__category',
                                     'product_description', 'product_weight', 'amount',
+                                    'total_received_or_sent', 'received_from_customer', 'due',
                                     'date_created', 'status', 'note', 'delivery_address',
                                     'delivery_instruction', 'delivery_area__delivery_area'):
         writer.writerow(order)

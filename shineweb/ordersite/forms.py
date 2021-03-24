@@ -5,7 +5,7 @@ from accounts.models import Order
 class OrderForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(OrderForm, self).__init__(*args, **kwargs)
-        self.fields['amount'].disabled = True
+        # self.fields['amount'].disabled = True
         # super().__init__(*args, **kwargs)
         # self.fields['service_charge'].queryset = Order_price.objects.none()
         self.fields['customer_email'].required = False
@@ -14,6 +14,14 @@ class OrderForm(forms.ModelForm):
         self.fields['product_category'].required = False
         self.fields['product_description'].required = False
         self.fields['delivery_instruction'].required = False
+        self.fields['customer_name'].required = True
+        self.fields['customer_phone'].required = True
+        self.fields['product_weight'].required = True
+        self.fields['delivery_address'].required = True
+        self.fields['delivery_area'].required = True
+        # self.fields['customer_name'].required = True
+        # self.fields['customer_name'].required = True
+        # self.fields['customer_name'].required = True
 
         # if 'delivery_option' in self.data:
         #     try:
@@ -30,6 +38,6 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-        exclude = ['merchant', 'status', 'note', 'received_from_customer', 'total_amount',
-                   'total_received', 'due']
+        exclude = ['merchant', 'status', 'note', 'received_from_customer',
+                   'total_received_or_sent', 'due', 'amount']
 
