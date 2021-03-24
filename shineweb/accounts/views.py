@@ -72,7 +72,9 @@ def home(request):
     delivered = orders.filter(status='Delivered').count()
     pending = orders.filter(status='Pending').count()
 
-    context = {'orders': orders, 'customers': customers,
+    neworders = Order.objects.all().order_by('-date_created')[:5]
+
+    context = {'orders': neworders, 'customers': customers,
                'total_orders': total_orders, 'delivered': delivered,
                'pending': pending}
 

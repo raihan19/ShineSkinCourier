@@ -9,21 +9,21 @@
 
 <div class="row">
 	<div class="col-md-5">
-		<h5>CUSTOMERS: {{total_customers}}</h5>
+		<h5>CUSTOMERS: {{total_orders}}</h5>
 		<hr>
 		<div class="card card-body">
 			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'order-list-admin' %}">View all orders</a>
 			<table class="table table-sm">
 				<tr>
 					<th></th>
+					<th>Merchant</th>
 					<th>Customer</th>
-					<th>Orders</th>
 				</tr>
 				{% for order in orders %}
 					<tr>
 						<td><a href="{% url 'customer' order.id %}" class="btn btn-sm btn-info">View</a></td>
+						<td>{{order.merchant}}</td>
 						<td>{{order.customer_name}}</td>
-						<td>{{order.customer_phone}}</td>
 					</tr>
 				{% endfor %}
 			</table>
