@@ -19,6 +19,7 @@ import csv
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import OrderForm
+from django.db.models import Sum
 
 
 # @unauthenticated_user
@@ -142,7 +143,8 @@ def export_order_csv(request):
                      'Product description', 'Product weight', 'Service charge',
                      'Total sent', 'Received from customer', 'Due',
                      'Date created', 'Status', 'Note', 'Delivery address',
-                     'Delivery instruction', 'Delivery area'])
+                     'Delivery instruction', 'Delivery area', 'Sum of received from customer',
+                     'Sum of service charge', 'Sum of total sent', 'Sum of due',])
 
     # orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
     #                                          'customer_phone', 'customer_email', 'product_name',
@@ -150,14 +152,24 @@ def export_order_csv(request):
     #                                          'product_description', 'product_weight', 'amount',
     #                                          'date_created', 'status', 'note', 'delivery_address',
     #                                          'delivery_instruction', 'delivery_area__delivery_area')
+    count = 0
     for order in qorders.values_list('merchant__username', 'id', 'customer_name',
                                     'customer_phone', 'customer_email', 'product_name',
                                     'product_price', 'product_category__category',
                                     'product_description', 'product_weight', 'amount',
                                     'total_received_or_sent', 'received_from_customer', 'due',
                                     'date_created', 'status', 'note', 'delivery_address',
-                                    'delivery_instruction', 'delivery_area__delivery_area'):
+                                    'delivery_instruction', 'delivery_area__delivery_area',):
+        if count == 0:
+            order = list(order)
+            order.append(qorders.aggregate(Sum('received_from_customer'))['received_from_customer__sum'])
+            order.append(qorders.aggregate(Sum('amount'))['amount__sum'])
+            order.append(qorders.aggregate(Sum('total_received_or_sent'))['total_received_or_sent__sum'])
+            order.append(qorders.aggregate(Sum('due'))['due__sum'])
+            order = tuple(order)
+
         writer.writerow(order)
+        count += 1
 
     return response
 
