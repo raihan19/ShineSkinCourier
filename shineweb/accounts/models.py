@@ -106,6 +106,27 @@ class Order(models.Model):
 		self.due = self.received_from_customer - self.amount - self.total_received_or_sent
 		return super(Order, self).save()
 
+	def get_email(self):
+		return self.merchant.email
+
+	def get_your_name(self):
+		return self.merchant.regprofile.your_name
+
+	def get_contact_no(self):
+		return self.merchant.regprofile.contact_no
+
+	def get_company_name(self):
+		return self.merchant.regprofile.company_name
+
+	def get_company_address(self):
+		return self.merchant.regprofile.company_address
+
+	def get_payment_method(self):
+		return self.merchant.regprofile.payment_method
+
+	def get_way_of_payment(self):
+		return self.merchant.regprofile.way_of_payment
+
 	def __str__(self):
 		return str(self.merchant) + ' ' + str(self.id)
 

@@ -9,19 +9,32 @@
 	<div class="col-md">
 		<div class="card card-body">
 			<h5>Merchant: {{customer.merchant}}</h5>
-			<hr>
-			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_order' customer.id %}">Update order</a>
-			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'delete_order' customer.id %}">Delete order</a>
+			<p>ID: {{customer.merchant.id}}</p>
+			<p>Name:  {{customer.merchant.regprofile.your_name}}</p>
+			<p>Email:  {{customer.merchant.email}}</p>
+			<p>Contact Number:  {{customer.merchant.regprofile.contact_no}}</p>
+			<p>Company name:  {{customer.merchant.regprofile.company_name}}</p>
+			<p>Company address:  {{customer.merchant.regprofile.company_address}}</p>
+			<p>Payment method:  {{customer.merchant.regprofile.payment_method}}</p>
+			<p>Way of payment:  {{customer.merchant.regprofile.way_of_payment}}</p>
+<!--			<hr>-->
+<!--			<a class="btn btn-outline-info  btn-sm btn-block" href="{% url 'update_order' customer.id %}">Update order</a>-->
+<!--			<a class="btn btn-outline-danger  btn-sm btn-block" href="{% url 'delete_order' customer.id %}">Delete order</a>-->
 
 		</div>
 	</div>
 
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>Contact Information</h5>
-			<hr>
-			<p>Customer name:  {{customer.customer_name}}</p>
-			<p>Customer phone:  {{customer.customer_phone}}</p>
+			<h5>Customer</h5>
+			<p>Order ID:  {{customer.id}}</p>
+			<p>Name:  {{customer.customer_name}}</p>
+			<p>Phone:  {{customer.customer_phone}}</p>
+			<p>Product weight:  {{customer.product_weight}}</p>
+			<p>Status:  {{customer.status}}</p>
+			<p>Note:  {{customer.note}}</p>
+			<p>Delivery address:  {{customer.delivery_address}}</p>
+			<p>Delivery area:  {{customer.delivery_area}}</p>
 		</div>
 	</div>
 

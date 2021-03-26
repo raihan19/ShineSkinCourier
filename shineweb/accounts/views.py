@@ -137,14 +137,17 @@ def export_order_csv(request):
     response['Content-Disposition'] = 'attachment; filename="orders.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Merchant', 'Order ID', 'Customer name',
+    writer.writerow(['Merchant username', 'Order ID', 'Customer name',
                      'Customer phone', 'Customer email', 'Product name',
                      'Product price', 'Product category',
                      'Product description', 'Product weight', 'Service charge',
                      'Total sent', 'Received from customer', 'Due',
                      'Date created', 'Status', 'Note', 'Delivery address',
                      'Delivery instruction', 'Delivery area', 'Sum of received from customer',
-                     'Sum of service charge', 'Sum of total sent', 'Sum of due',])
+                     'Sum of service charge', 'Sum of total sent', 'Sum of due',
+                     'Merchant email', 'Merchant name', 'Merchant contact number',
+                     'Merchant company name', 'Merchant company address', 'Merchant payment method',
+                     'Merchant way of payment',])
 
     # orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
     #                                          'customer_phone', 'customer_email', 'product_name',
@@ -167,6 +170,23 @@ def export_order_csv(request):
             order.append(qorders.aggregate(Sum('total_received_or_sent'))['total_received_or_sent__sum'])
             order.append(qorders.aggregate(Sum('due'))['due__sum'])
             order = tuple(order)
+        else:
+            order = list(order)
+            order.append('NA')
+            order.append('NA')
+            order.append('NA')
+            order.append('NA')
+            order = tuple(order)
+
+        order = list(order)
+        order.append(Order.objects.get(id=order[1]).get_email())
+        order.append(Order.objects.get(id=order[1]).get_your_name())
+        order.append(Order.objects.get(id=order[1]).get_contact_no())
+        order.append(Order.objects.get(id=order[1]).get_company_name())
+        order.append(Order.objects.get(id=order[1]).get_company_address())
+        order.append(Order.objects.get(id=order[1]).get_payment_method())
+        order.append(str(Order.objects.get(id=order[1]).get_way_of_payment()))
+        order = tuple(order)
 
         writer.writerow(order)
         count += 1
