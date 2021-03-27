@@ -102,9 +102,9 @@ def products(request):
 @allowed_users(allowed_roles=['admin'])
 def customer(request, pk):
     customer = Order.objects.get(id=pk)
-    total_orders = customer.due
+    due = customer.due
 
-    context = {'customer': customer, 'total_orders': total_orders,}
+    context = {'customer': customer, 'due': due,}
     return render(request, 'accounts/customer.html', context)
 
 
