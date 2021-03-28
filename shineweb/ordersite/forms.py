@@ -39,5 +39,5 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = '__all__'
         exclude = ['merchant', 'status', 'note', 'received_from_customer',
-                   'total_received_or_sent', 'due', 'amount']
+                   'total_received_or_sent', 'due', 'amount', 'assigned_to_deliveryman']
 
