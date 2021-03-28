@@ -101,6 +101,7 @@ class Order(models.Model):
 	amount = models.IntegerField(default=0, blank=True)
 	total_received_or_sent = models.IntegerField(default=0, blank=True)
 	due = models.IntegerField(default=0, blank=True)
+	assigned_to_deliveryman = models.CharField(max_length=20, default='')
 
 	def save(self, *args, **kwargs):
 		self.due = self.received_from_customer - self.amount - self.total_received_or_sent

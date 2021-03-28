@@ -18,7 +18,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only, new_all
 import csv
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import OrderForm
+from .forms import OrderForm, deliveryManForm
 from django.db.models import Sum
 
 
@@ -126,7 +126,18 @@ def order_list_admin(request):
     except EmptyPage:
         orders = paginator.page(paginator.num_pages)
 
-    context = {'orders': orders, 'filter': orderFilter}
+    if request.method == 'POST':
+        list_of_id_for_action = request.POST.getlist('for_action')
+        list_of_obj = qorders.filter(pk__in=list_of_id_for_action)
+        newform = deliveryManForm(request.POST)
+
+        if newform.is_valid():
+            list_of_obj.update(assigned_to_deliveryman=newform.cleaned_data['assigned_to_deliveryman'])
+            return redirect('dashboard')
+    else:
+        newform = deliveryManForm()
+
+    context = {'orders': orders, 'filter': orderFilter, 'newform':newform}
     return render(request, 'accounts/order_list_admin.html', context)
 
 
@@ -143,7 +154,7 @@ def export_order_csv(request):
                      'Product description', 'Product weight', 'Service charge',
                      'Total sent', 'Received from customer', 'Due',
                      'Date created', 'Status', 'Note', 'Delivery address',
-                     'Delivery instruction', 'Delivery area', 'Sum of received from customer',
+                     'Delivery instruction', 'Delivery area', 'Assigned to deliveryman', 'Sum of received from customer',
                      'Sum of service charge', 'Sum of total sent', 'Sum of due',
                      'Merchant email', 'Merchant name', 'Merchant contact number',
                      'Merchant company name', 'Merchant company address', 'Merchant payment method',
@@ -162,7 +173,8 @@ def export_order_csv(request):
                                     'product_description', 'product_weight', 'amount',
                                     'total_received_or_sent', 'received_from_customer', 'due',
                                     'date_created', 'status', 'note', 'delivery_address',
-                                    'delivery_instruction', 'delivery_area__delivery_area',):
+                                    'delivery_instruction', 'delivery_area__delivery_area',
+                                     'assigned_to_deliveryman',):
         if count == 0:
             order = list(order)
             order.append(qorders.aggregate(Sum('received_from_customer'))['received_from_customer__sum'])

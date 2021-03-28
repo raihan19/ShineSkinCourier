@@ -1,6 +1,7 @@
 {% extends 'accounts/main_template.html' %}
 {% block content %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 <br>
 <div class="row">
@@ -13,6 +14,11 @@
 		    {% endfor %}
 		    <button class="btn btn-primary" type="submit">Search</button>
 		  </form>
+			<form method="POST">
+				{% csrf_token %}
+				<fieldset class="form-group">
+					{{ newform|crispy }}
+				</fieldset>
 		</div>
 	</div>
 	
@@ -25,6 +31,7 @@
 		<div class="card card-body">
 			<table class="table table-sm">
 				<tr>
+					<th>Assigned</th>
 					<th>Merchant</th>
 					<th>Customer</th>
 					<th>Weight</th>
@@ -32,11 +39,19 @@
 					<th>Status</th>
 					<th>Note</th>
 					<th>Order ID</th>
+					<th>Deliveryman</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
 				{% for order in orders %}
 					<tr>
+						<td>
+							{% csrf_token %}
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="{{order.id}}" id="for_action" name="for_action">
+								<label class="form-check-label" for="for_action"></label>
+							</div>
+						</td>
 						<td>{{order.merchant}}</td>
 						<td>{{order.customer_name}}</td>
 						<td>{{order.product_weight}}</td>
@@ -44,10 +59,17 @@
 						<td>{{order.status}}</td>
 						<td>{{order.note}}</td>
 						<td>{{order.id}}</td>
+						<td>{{order.assigned_to_deliveryman}}</td>
 						<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
 						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
 					</tr>
 				{% endfor %}
+						<td>
+							<div class="form-check form-group">
+								<button class="btn btn-outline-info" type="submit">Change</button>
+							</div>
+						</form>
+						</td>
 			</table>
 		</div>
 	</div>

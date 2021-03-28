@@ -22,3 +22,8 @@ class CreateUserForm(UserCreationForm):
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
 
+
+class deliveryManForm(forms.ModelForm):
+	class Meta:
+		model = Order
+		fields = ['assigned_to_deliveryman']
