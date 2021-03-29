@@ -7,14 +7,14 @@
             <div class="article-metadata">
                 <table>
                   <tr>
+                    <th>Order ID</th>
                     <th>Customer</th>
-                    <th>Phone</th>
-                    <th>Product</th>
+                    <th>Status</th>
                   </tr>
                   <tr>
-                    <td><a class="ex1" href="{% url 'order-detail' order.id %}">{{ order.customer_name }}</td>
-                    <td>{{ order.customer_phone }}</td>
-                    <td>{{ order.product_name }}</td>
+                    <td><a class="ex1" href="{% url 'order-detail' order.id %}">{{ order.id }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td>{{ order.status }}</td>
                   </tr>
                 </table>
         </article>

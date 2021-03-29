@@ -88,7 +88,7 @@ def home(request):
 def products(request):
     products = Order.objects.all().order_by('-date_created')
     page = request.GET.get('page', 1)
-    paginator = Paginator(products, 5)
+    paginator = Paginator(products, 35)
     try:
         products = paginator.page(page)
     except PageNotAnInteger:
@@ -118,7 +118,7 @@ def order_list_admin(request):
     qorders = orderFilter.qs
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(qorders, 5)
+    paginator = Paginator(qorders, 35)
     try:
         orders = paginator.page(page)
     except PageNotAnInteger:
@@ -216,7 +216,7 @@ def transaction_history(request):
     else:
         order_list = Order.objects.all().order_by('-date_created')
     page = request.GET.get('page', 1)
-    paginator = Paginator(order_list, 5)
+    paginator = Paginator(order_list, 35)
     try:
         t_history = paginator.page(page)
     except PageNotAnInteger:

@@ -27,7 +27,7 @@ class OrderListView(LoginRequiredMixin, ListView):
     template_name = 'ordersite/order_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'orders'
     # ordering = ['-date_posted']
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = Order.objects.filter(merchant=self.request.user)
@@ -94,7 +94,7 @@ class OrderTransactionListView(LoginRequiredMixin, ListView):
     template_name = 'ordersite/order_transaction_list.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'orders'
     # ordering = ['-date_posted']
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = Order.objects.filter(merchant=self.request.user)
