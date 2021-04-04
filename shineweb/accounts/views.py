@@ -13,13 +13,14 @@ from django.contrib.auth.models import Group
 # Create your views here.
 from .models import *
 # from .forms import OrderForm, CreateUserForm, CustomerForm
-from .filters import OrderFilter
+from .filters import OrderFilter, MerchantFilter
 from .decorators import unauthenticated_user, allowed_users, admin_only, new_allowed_users
 import csv
 from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import OrderForm, deliveryManForm
 from django.db.models import Sum
+from registrationUser.models import regProfile
 
 
 # @unauthenticated_user
@@ -155,10 +156,7 @@ def export_order_csv(request):
                      'Total sent', 'Received from customer', 'Due',
                      'Date created', 'Status', 'Note', 'Delivery address',
                      'Delivery instruction', 'Delivery area', 'Assigned to deliveryman', 'Sum of received from customer',
-                     'Sum of service charge', 'Sum of total sent', 'Sum of due',
-                     'Merchant email', 'Merchant name', 'Merchant contact number',
-                     'Merchant company name', 'Merchant company address', 'Merchant payment method',
-                     'Merchant way of payment',])
+                     'Sum of service charge', 'Sum of total sent', 'Sum of due',])
 
     # orders = Order.objects.all().values_list('merchant__username', 'id', 'customer_name',
     #                                          'customer_phone', 'customer_email', 'product_name',
@@ -190,18 +188,51 @@ def export_order_csv(request):
             order.append('NA')
             order = tuple(order)
 
-        order = list(order)
-        order.append(Order.objects.get(id=order[1]).get_email())
-        order.append(Order.objects.get(id=order[1]).get_your_name())
-        order.append(Order.objects.get(id=order[1]).get_contact_no())
-        order.append(Order.objects.get(id=order[1]).get_company_name())
-        order.append(Order.objects.get(id=order[1]).get_company_address())
-        order.append(Order.objects.get(id=order[1]).get_payment_method())
-        order.append(str(Order.objects.get(id=order[1]).get_way_of_payment()))
-        order = tuple(order)
-
         writer.writerow(order)
         count += 1
+
+    return response
+
+
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
+def merchant_list_admin(request):
+    global morders
+    morders = regProfile.objects.all()
+
+    merchantFilter = MerchantFilter(request.GET, queryset=morders)
+    morders = merchantFilter.qs
+
+    print(morders)
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(morders, 35)
+    try:
+        orders = paginator.page(page)
+    except PageNotAnInteger:
+        orders = paginator.page(1)
+    except EmptyPage:
+        orders = paginator.page(paginator.num_pages)
+
+    context = {'orders': orders, 'filter': merchantFilter}
+    return render(request, 'accounts/merchant_list_admin.html', context)
+
+
+@login_required(login_url='login')
+@new_allowed_users(allowed_roles=['admin'])
+def export_merchant_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="merchant.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Merchant username', 'Merchant ID', 'Merchant email', 'Merchant name', 'Merchant contact number',
+                     'Merchant company name', 'Merchant company address', 'Merchant payment method',
+                     'Merchant way of payment',])
+
+    for order in morders.values_list('user__username', 'user_id', 'user__email', 'your_name', 'contact_no',
+                                     'company_name', 'company_address', 'payment_method', 'way_of_payment',):
+
+        writer.writerow(order)
 
     return response
 

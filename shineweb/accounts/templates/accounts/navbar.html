@@ -15,6 +15,7 @@
       </li>
       <a class="nav-link" href="{% url 'products' %}">Products</a>
       <a class="nav-link" href="{% url 'transaction-history' %}">Transaction history</a>
+      <a class="nav-link" href="{% url 'merchant-list-admin' %}">Merchant list</a>
     </ul>
     {% if user.is_authenticated %}
       <a class="nav-link" href="{% url 'adminlogout' %}">Logout</a>

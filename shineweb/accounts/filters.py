@@ -1,6 +1,7 @@
 import django_filters
 from .models import Order
 from django_filters import DateFilter, CharFilter
+from registrationUser.models import regProfile
 
 
 class OrderFilter(django_filters.FilterSet):
@@ -11,3 +12,9 @@ class OrderFilter(django_filters.FilterSet):
 	class Meta:
 		model = Order
 		fields = ['merchant__username', 'status', 'id', 'delivery_area']
+
+
+class MerchantFilter(django_filters.FilterSet):
+	class Meta:
+		model = regProfile
+		fields = ['user__username']

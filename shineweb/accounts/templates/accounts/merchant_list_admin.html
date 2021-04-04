@@ -1,0 +1,80 @@
+{% extends 'accounts/main_template.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+		    {% for field in filter.form %}
+		    	{{field.label}}
+		    	{{field|add_class:'form-control-sm'}}
+		    {% endfor %}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		</div>
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<a href="{% url 'export_merchants_csv' %}">Export all merchant</a>
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Username</th>
+                    <th>ID</th>
+					<th>Name</th>
+                    <th>Email</th>
+					<th>Contact number</th>
+					<th>Company name</th>
+					<th>Company address</th>
+					<th>Payment method</th>
+					<th>Way of payment</th>
+				</tr>
+				{% for order in orders %}
+					<tr>
+						<td>{{order.user.username}}</td>
+						<td>{{order.user.id}}</td>
+						<td>{{order.user.regprofile.your_name}}</td>
+						<td>{{order.user.email}}</td>
+						<td>{{order.user.regprofile.contact_no}}</td>
+						<td>{{order.user.regprofile.company_name}}</td>
+						<td>{{order.user.regprofile.company_address}}</td>
+						<td>{{order.user.regprofile.payment_method}}</td>
+						<td>{{order.user.regprofile.way_of_payment}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+	{% if orders.has_other_pages %}
+	  <ul class="pagination">
+		{% if orders.has_previous %}
+		  <li><a href="?page={{ orders.previous_page_number }}">&laquo;</a></li>
+		{% else %}
+		  <li class="disabled"><span>&laquo;</span></li>
+		{% endif %}
+		{% for i in orders.paginator.page_range %}
+		  {% if orders.number == i %}
+			<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+		  {% else %}
+			<li><a href="?page={{ i }}">{{ i }}</a></li>
+		  {% endif %}
+		{% endfor %}
+		{% if orders.has_next %}
+		  <li><a href="?page={{ orders.next_page_number }}">&raquo;</a></li>
+		{% else %}
+		  <li class="disabled"><span>&raquo;</span></li>
+		{% endif %}
+	  </ul>
+	{% endif %}
+	
+
+
+{% endblock content %}
