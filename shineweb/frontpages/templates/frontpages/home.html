@@ -1,98 +1,382 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Runner</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Consulting Website Template Free Download" name="keywords">
+        <meta content="Consulting Website Template Free Download" name="description">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Runner</title>
-    <!--  bootstrap css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <!--  font Awesome Css  -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-    <!--    stylesheet for fonts-->
-    <link href="{% static 'frontpages/fonts/stylesheet.css' %}" rel="stylesheet">
-    <!-- Reset css-->
-    <link href="{% static 'frontpages/css/reset.css' %}" rel="stylesheet">
+        <!-- Favicon -->
+        <link href="{% static 'frontpages/img/favicon.ico' %}" rel="icon">
 
-    <!--slick css-->
-    <link href="{% static 'frontpages/css/slick.css' %}" rel="stylesheet">
-    <!--  owl-carousel css -->
-    <link href="{% static 'frontpages/css/owl.carousel.css' %}" rel="stylesheet">
-    <!--  YTPlayer css For Background Video -->
-    <link href="{% static 'frontpages/css/jquery.mb.YTPlayer.min.css' %}" rel="stylesheet">
-    <!--  style css  -->
-    <link rel="stylesheet" href="{% static 'frontpages/css/meanmenu.css' %}">
-    <link href="{% static 'frontpages/style.css' %}" rel="stylesheet">
-    <!--  Responsive Css  -->
-    <link href="{% static 'frontpages/css/responsive.css' %}" rel="stylesheet">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+        
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'frontpages/lib/animate/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'frontpages/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
-    <!--  browser campatibel css files-->
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
+        <!-- Template Stylesheet -->
+        <link href="{% static 'frontpages/css/style.css' %}" rel="stylesheet">
+    </head>
 
-<body class="js">
-    <!--start header area-->
-    <div id="preloader"></div>
-    <section class="header_area" id="home">
-        <!--   start logo & menu markup    -->
-        <div class="logo_menu" id="sticker">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
-                        <div class="logo">
-                            <a href="{% url 'frontpages-home' %}"><img src="{% static 'frontpages/img/logo.png' %}" alt="logo"></a>
-                        </div>
-                    </div>
-                    <div class="signup mobMenuCol">
-                        <nav class="navbar">
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                                <ul class="nav navbar-nav navbar-right menu">
-                                    <li><a href="{% url 'frontpages-home' %}">Home</a></li>
-                                    <li><a href="{% url 'frontpages-about' %}">About</a></li>
-                                    {% if user.is_authenticated %}
-                                        <li><a href="{% url 'order-create' %}">New Order</a></li>
-                                        <li><a href="{% url 'order-list' %}">View Order</a></li>
-                                        <li><a class="nav-item nav-link" href="{% url 'order-transaction-list' %}">View Transaction</a></li>
-                                        <li><a href="{% url 'profile' %}">Profile</a></li>
-                                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                                    {% else %}
-                                        <li><a href="{% url 'login' %}">Login</a></li>
-                                        <li><a href="{% url 'register' %}">Register</a></li>
-                                    {% endif %}
-                                </ul>
-                            <!-- /.navbar-collapse -->
-                        </nav>
-                    </div>
-<!--                    <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">-->
-<!--                        <ul class="nav navbar-nav">-->
-<!--                            {% if user.is_authenticated %}-->
-<!--                                <li><a href="{% url 'profile' %}">Profile</a></li>-->
-<!--                                <li><a href="{% url 'logout' %}">Logout</a></li>-->
-<!--                            {% else %}-->
-<!--                                <li><a href="{% url 'login' %}">Login</a></li>-->
-<!--                                <li><a href="{% url 'register' %}">Register</a></li>-->
-<!--                            {% endif %}-->
-<!--                        </ul>-->
+    <body>
+<!--        &lt;!&ndash; Top Bar Start &ndash;&gt;-->
+<!--        <div class="top-bar d-none d-md-block">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-8">-->
+<!--                        <div class="top-bar-left">-->
+<!--                            <div class="text">-->
+<!--                                <i class="far fa-clock"></i>-->
+<!--                                <h2>8:00 - 9:00</h2>-->
+<!--                                <p>Mon - Fri</p>-->
+<!--                            </div>-->
+<!--                            <div class="text">-->
+<!--                                <i class="fa fa-phone-alt"></i>-->
+<!--                                <h2>+123 456 7890</h2>-->
+<!--                                <p>For Appointment</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
 <!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <div class="top-bar-right">-->
+<!--                            <div class="social">-->
+<!--                                <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Top Bar End &ndash;&gt;-->
+
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a href="{% url 'frontpages-home' %}" class="navbar-brand">Runner</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="{% url 'frontpages-home' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'frontpages-about' %}" class="nav-item nav-link">About</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'order-create' %}" class="nav-item nav-link">New Order</a>
+                            <a href="{% url 'order-list' %}" class="nav-item nav-link">View Order</a>
+                            <a href="{% url 'order-transaction-list' %}" class="nav-item nav-link">View Transaction</a>
+                            <a href="{% url 'profile' %}" class="nav-item nav-link">Profile</a>
+                            <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
+                            <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+                        {% endif %}
+<!--                        <a href="advisor.html" class="nav-item nav-link">Advisor</a>-->
+<!--                        <a href="review.html" class="nav-item nav-link">Review</a>-->
+<!--                        <div class="nav-item dropdown">-->
+<!--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>-->
+<!--                            <div class="dropdown-menu">-->
+<!--                                <a href="blog.html" class="dropdown-item">Blog Page</a>-->
+<!--                                <a href="single.html" class="dropdown-item">Single Page</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
+                    </div>
                 </div>
             </div>
         </div>
-        <!--   end of logo menu markup     -->
-        <!--  start welcome text marup  -->
-        <div class="table">
-            <div class="cell">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <div class="welcome_text">
-                                <h1>Welcome to Runner</h1>
-                                <div class="welcome_p">
-                                    <p>Get the fastest service for your product</p>
+        <!-- Nav Bar End -->
+
+
+        <!-- Carousel Start -->
+        <div class="carousel">
+            <div class="container-fluid">
+                <div class="owl-carousel">
+                    <div class="carousel-item">
+                        <div class="carousel-img">
+                            <img src="{% static 'frontpages/img/rsz_0001.png' %}" alt="Image">
+                        </div>
+                        <div class="carousel-text">
+                            <h1>Welcome to Runner</h1>
+                            <p>
+                                Get the fastest service for your product
+                            </p>
+<!--                            <div class="carousel-btn">-->
+<!--                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>-->
+<!--                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img">
+                            <img src="{% static 'frontpages/img/rsz_img_9478.png' %}" alt="Image">
+                        </div>
+                        <div class="carousel-text">
+                            <h1>Your Success Our Achievement</h1>
+                            <p>
+                                Join us today
+                            </p>
+<!--                            <div class="carousel-btn">-->
+<!--                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>-->
+<!--                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="carousel-img">
+                            <img src="{% static 'frontpages/img/rsz_img_9559.png' %}" alt="Image">
+                        </div>
+                        <div class="carousel-text">
+                            <h1>Your Business Our Effort</h1>
+                            <p>
+                                Make the most of it
+                            </p>
+<!--                            <div class="carousel-btn">-->
+<!--                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>-->
+<!--                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+
+<!--        &lt;!&ndash; Video Modal Start&ndash;&gt;-->
+<!--        <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-body">-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>        -->
+<!--                        &lt;!&ndash; 16:9 aspect ratio &ndash;&gt;-->
+<!--                        <div class="embed-responsive embed-responsive-16by9">-->
+<!--                            <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div> -->
+<!--        &lt;!&ndash; Video Modal End &ndash;&gt;-->
+        
+        
+        <!-- Fact Start -->
+        <div class="fact">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="fact-item">
+                            <img src="{% static 'frontpages/img/icon-4.png' %}" alt="Icon">
+                            <h2>Qualified Team</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="fact-item">
+                            <img src="{% static 'frontpages/img/icon-1.png' %}" alt="Icon">
+                            <h2>Individual Approach</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="fact-item">
+                            <img src="{% static 'frontpages/img/icon-8.png' %}" alt="Icon">
+                            <h2>100% Success</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="fact-item">
+                            <img src="{% static 'frontpages/img/icon-6.png' %}" alt="Icon">
+                            <h2>100% Satisfaction</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fact Start -->
+        
+
+<!--        &lt;!&ndash; About Start &ndash;&gt;-->
+<!--        <div class="about">-->
+<!--            <div class="container">-->
+<!--                <div class="row align-items-center">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="about-img">-->
+<!--                            <div class="about-img-1">-->
+<!--                                <img src="img/about-2.jpg" alt="Image">-->
+<!--                            </div>-->
+<!--                            <div class="about-img-2">-->
+<!--                                <img src="img/about-1.jpg" alt="Image">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="section-header">-->
+<!--                            <p>Learn About Us</p>-->
+<!--                            <h2>25 Years Experience</h2>-->
+<!--                        </div>-->
+<!--                        <div class="about-text">-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.-->
+<!--                            </p>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.-->
+<!--                            </p>-->
+<!--                            <a class="btn" href="">Learn More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; About End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Service Start &ndash;&gt;-->
+<!--        <div class="service">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Consulting Services</p>-->
+<!--                    <h2>Our Best Consulting Services</h2>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-1.png" alt="Icon">-->
+<!--                            <h3>Business Strategy</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-2.png" alt="Icon">-->
+<!--                            <h3>Project Management</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-3.png" alt="Icon">-->
+<!--                            <h3>Market Research</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-4.png" alt="Icon">-->
+<!--                            <h3>Human Resource</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-5.png" alt="Icon">-->
+<!--                            <h3>Online Business</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-6.png" alt="Icon">-->
+<!--                            <h3>Capital Management</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-7.png" alt="Icon">-->
+<!--                            <h3>Business Insurance</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-8.png" alt="Icon">-->
+<!--                            <h3>Online Marketing</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Service End &ndash;&gt;-->
+
+
+        <!-- Feature Start -->
+        <div class="feature">
+            <div class="container">
+                <div class="row align-items-end">
+                    <div class="col-md-6">
+                        <div class="feature-img">
+                            <img src="{% static 'frontpages/img/rsz_img_9511-removebg-preview.png' %}" alt="Image">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="section-header">
+                            <p>Our Feature</p>
+                            <h2>Why Choose Us?</h2>
+                        </div>
+                        <p>
+                            We are best courier service provide in Bangladesh. Our service is unparalleled to any contemporary services. Merchant will get the best cut here where cost is low for the customer.
+                        </p>
+                        <div class="row counters">
+                            <div class="col-6">
+                                <i class="fa fa-user"></i>
+                                <div class="counters-text">
+                                    <h2 data-toggle="counter-up">100</h2>
+                                    <p>Our Staffs</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fa fa-users"></i>
+                                <div class="counters-text">
+                                    <h2 data-toggle="counter-up">200</h2>
+                                    <p>Our Clients</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fa fa-check"></i>
+                                <div class="counters-text">
+                                    <h2 data-toggle="counter-up">300</h2>
+                                    <p>Completed Deliveries</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <i class="fa fa-running"></i>
+                                <div class="counters-text">
+                                    <h2 data-toggle="counter-up">400</h2>
+                                    <p>Running Deliveries</p>
                                 </div>
                             </div>
                         </div>
@@ -100,515 +384,355 @@
                 </div>
             </div>
         </div>
-        <!-- end of welcome text markup-->
-    </section>
-    <!--end of header area-->
-
-    <!--   start about top area-->
-    <section class="about_top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{% static 'frontpages/img/growth.png' %}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Fastest Delivery</h4>
-                            <p>Get your parcel within a day!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{% static 'frontpages/img/reliable.png' %}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Reliable Delivery</h4>
-                            <p>Have your product without compromising its quality!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="about_single_item">
-                        <div class="item_icon">
-                            <img src="{% static 'frontpages/img/profit.png' %}" alt="item">
-                        </div>
-                        <div class="about_single_item_content">
-                            <h4>Earn profit</h4>
-                            <p>Merchant gets the best cut while cost is low for customer!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    end of about top area-->
-
-
-<!--    &lt;!&ndash;    start about us area&ndash;&gt;-->
-<!--    <section class="about_us_area" id="about">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-6 col-sm-6">-->
-<!--                    <div class="about_us_content">-->
-<!--                        <h2>about us</h2>-->
-<!--                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>-->
-<!--                        <a href="#">read more <span  class="fa fa-long-arrow-right"></span></a>-->
-<!--                    </div>-->
+        <!-- Feature End -->
+        
+        
+<!--        &lt;!&ndash; Testimonial Start &ndash;&gt;-->
+<!--        <div class="testimonial">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Testimonial Carousel</p>-->
+<!--                    <h2>100% Positive Customer Reviews</h2>-->
 <!--                </div>-->
-<!--                <div class="col-md-offset-1 col-sm-6 col-md-5">-->
-<!--                    <div class="about_car">-->
-<!--                        <img src="img/about_car.png" alt="car">-->
+<!--                <div class="owl-carousel testimonials-carousel">-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-1.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-2.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Phasellus pellentesque tempus pretium. Quisque in enim sit amet purus venenatis porttitor sed non velit. Vivamus vehicula finibus-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-3.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-4.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--    </section>-->
-<!--    &lt;!&ndash;   end of about us area&ndash;&gt;-->
+<!--        &lt;!&ndash; Testimonial End &ndash;&gt;-->
 
-    <!--start count up area-->
-    <section class="couter_up_area" id="service">
-        <div class="table">
-            <div class="cell">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2 col-sm-3 text-center">
-                            <div class="single_count">
-                                <h1 class="counter">1000</h1>
-                                <h5>Satisfied clients</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-md-offset-1 text-center">
-                            <div class="single_count">
-                                <h1 class="counter">500</h1>
-                                <h5>Satisfied merchants</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-3 col-md-offset-1 text-center">
-                            <div class="single_count">
-                                <h1 class="counter">120</h1>
-                                <h5>Active workers</h5>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3 col-md-offset-1 text-center">
-                            <div class="single_count">
-                                <h1 class="counter">3546</h1>
-                                <h5>Product delivered</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    end of counter up area-->
 
-    <!--start calculate area-->
-<!--    <section class="calculate_area" id="tracking">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5 col-sm-6">-->
-<!--                    <div class="calculate_title">-->
-<!--                        <h2>Calculate your cost</h2>-->
-<!--                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>-->
-<!--                    </div>-->
-<!--                    <div class="calculate_form">-->
-<!--                        <form action="post">-->
-<!--                            <div class="single_calculate">-->
-<!--                                <input type="text">-->
-<!--                                <label>height</label>-->
-<!--                                <div class="calculate_option">-->
-<!--                                    <select>-->
-<!--                                        <option value="cm">cm</option>-->
-<!--                                        <option value="ml">ml</option>-->
-<!--                                        <option value="cm">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="single_calculate">-->
-<!--                                <input type="text">-->
-<!--                                <label>width</label>-->
-<!--                                <div class="calculate_option">-->
-<!--                                    <select>-->
-<!--                                        <option value="cm">cm</option>-->
-<!--                                        <option value="ml">ml</option>-->
-<!--                                        <option value="cm">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="single_calculate">-->
-<!--                                <input type="text">-->
-<!--                                <label>length</label>-->
-<!--                                <div class="calculate_option">-->
-<!--                                    <select>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                        <option value="#">ml</option>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="single_calculate">-->
-<!--                                <input type="text">-->
-<!--                                <label>weight</label>-->
-<!--                                <div class="calculate_option">-->
-<!--                                    <select>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                        <option value="#">ml</option>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="single_calculate">-->
-<!--                                <label>location</label>-->
-<!--                                <div class="calculate_option selectpadding">-->
-<!--                                    <select>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                        <option value="#">ml</option>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                                <div class="calculate_option padding-riht">-->
-<!--                                    <select>-->
-<!--                                        <option value="#" selected>form</option>-->
-<!--                                        <option value="#">ml</option>-->
-<!--                                        <option value="#">cm</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="calculat-button">-->
-<!--                                <input type="submit" class="calulate" value="Calculate your cost now">-->
-<!--                            </div>-->
-<!--                            <div class="totla-cost">-->
-<!--                                <h5>Total Cost: <span>$ 30</span></h5>-->
-<!--                                <h5>Duration:: <span>3 days</span></h5>-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </div>-->
+<!--        &lt;!&ndash; Team Start &ndash;&gt;-->
+<!--        <div class="team">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Meet Our Advisors</p>-->
+<!--                    <h2>Our Professional Consulting Team</h2>-->
 <!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="calculat-image">-->
-<!--            <img src="img/men.png" alt="#">-->
-<!--        </div>-->
-<!--    </section>-->
-    <!--    end of calculate area-->
-
-
-    <!--    start client say area-->
-<!--    <section class="client-area" id="blog">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5 col-xs-12 col-sm-8">-->
-<!--                    <div class="slients-title">-->
-<!--                        <h2>What our clients say</h2>-->
-<!--                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-6 col-sm-6 col-xs-12">-->
-<!--                    <div class="single-clients">-->
-<!--                        <div class="client-img">-->
-<!--                            <img src="img/client.jpg" alt="client">-->
-<!--                        </div>-->
-<!--                        <div class="client-details">-->
-<!--                            <p>“Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore magna aliquam.”</p>-->
-<!--                            <h4>John Doe<span>Student</span></h4>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-1.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Donald John</h2>-->
+<!--                                <p>Founder & CEO</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-6 col-sm-6 col-xs-12">-->
-<!--                    <div class="single-clients">-->
-<!--                        <div class="client-img">-->
-<!--                            <img src="img/client-2.jpg" alt="client">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-2.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Adam Phillips</h2>-->
+<!--                                <p>Chef Executive</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
 <!--                        </div>-->
-<!--                        <div class="client-details">-->
-<!--                            <p>“Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore magna aliquam.”</p>-->
-<!--                            <h4>John Doe<span>Student</span></h4>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-3.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Thomas Olsen</h2>-->
+<!--                                <p>Chef Advisor</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-4.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>James Alien</h2>-->
+<!--                                <p>Advisor</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--    </section>-->
-    <!--    end of client area-->
-
-    <!--start Pricing Area -->
-<!--    <section class="pricing-area" id="pricing">-->
-<!--        <div class="table">-->
-<!--            <div class="cell">-->
-<!--                <div class="container">-->
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-5 col-sm-12">-->
-<!--                            <div class="pricing-desc section-padding-two">-->
-<!--                                <div class="pricing-desc-title">-->
-<!--                                    <div class="title">-->
-<!--                                        <h2>Pricing & plans</h2>-->
-<!--                                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>-->
-<!--                                    </div>-->
+<!--        &lt;!&ndash; Team End &ndash;&gt;-->
+        
+        
+<!--        &lt;!&ndash; Contact Start &ndash;&gt;-->
+<!--        <div class="contact">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Get In Touch</p>-->
+<!--                    <h2>Get In Touch For Any Query</h2>-->
+<!--                </div>-->
+<!--                <div class="row align-items-center">-->
+<!--                    <div class="col-md-5">-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-map-marker-alt"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Our Head Office</h3>-->
+<!--                                <p>123 Street, New York, USA</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-phone-alt"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Call for Help</h3>-->
+<!--                                <p>+012 345 6789</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-envelope"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Email for Information</h3>-->
+<!--                                <p>info@example.com</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <div class="contact-form">-->
+<!--                            <div id="success"></div>-->
+<!--                            <form name="sentMessage" id="contactForm" novalidate="novalidate">-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
 <!--                                </div>-->
-<!--                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div class="control-group">-->
+<!--                                    <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <button class="btn" type="submit" id="sendMessageButton">Send Message</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Contact End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Blog Start &ndash;&gt;-->
+<!--        <div class="blog">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Consulting Blog</p>-->
+<!--                    <h2>Latest From Our Consulting Blog</h2>-->
+<!--                </div>-->
+<!--                <div class="owl-carousel blog-carousel">-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-1.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
 <!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-2.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
+<!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-3.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
+<!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--            <div class="column-out">-->
-<!--                <div class="pricing-slider">-->
-<!--                    <ul class="carousel">-->
-<!--                        <li class="items main-pos slides" id="1">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Premium</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$450</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items right-pos slides" id="2">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Basic</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$150</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items back-pos slides" id="3">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Basic</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$150</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items back-pos slides" id="4">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Premium</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$450</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items back-pos slides" id="5">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Basic</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$150</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items back-pos slides" id="6">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Basic</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$150</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                        <li class="items left-pos slides" id="7">-->
-<!--                            &lt;!&ndash; Single Pricing Table &ndash;&gt;-->
-<!--                            <div class="single-pricing-table">-->
-<!--                                <div class="pricing-head">-->
-<!--                                    <h6 class="price-title">Basic</h6>-->
-<!--                                </div>-->
-<!--                                <div class="price">-->
-<!--                                    <p>$150</p>-->
-<!--                                    <span class="pricing-status">per month</span>-->
-<!--                                </div>-->
-<!--                                <div class="pricing-body">-->
-<!--                                    <ul>-->
-<!--                                        <li>Full website maintance</li>-->
-<!--                                        <li>Free domain & hosting</li>-->
-<!--                                        <li>High quality product</li>-->
-<!--                                        <li>24/7 Customer service</li>-->
-<!--                                    </ul>-->
-<!--                                    <a href="#" class="price-btn">Get started today</a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; /.End Of Single Pricing Table &ndash;&gt;-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                    <div class="slider-navs">-->
-<!--                        <div class="prev-nav" id="prev"><i class="fa fa-angle-left"></i></div>-->
-<!--                        <div class="next-nav" id="next"><i class="fa fa-angle-right"></i></div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--    </section>-->
-    <!-- /.End Of Pricing Area -->
+<!--        &lt;!&ndash; Blog End &ndash;&gt;-->
 
 
-
-    <!--   end of slider area-->
-    <section class="footer-area" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
-                    <div class="single-footer">
-                        <h2>Join today!</h2>
-                        <p>Explore the world of Runner</p>
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Head Office</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>Badda, Dhaka, Bangladesh</p>
+                                    <p><i class="fa fa-phone-alt"></i>01744219948</p>
+                                    <p><i class="fa fa-envelope"></i>runnercourier@gmail.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="#">Terms of use</a>
+                                    <a href="#">Privacy policy</a>
+                                    <a href="#">Cookies</a>
+                                    <a href="#">Help</a>
+                                    <a href="#">FQAs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="footer-newsletter">
+                            <h2>What are you waiting for?</h2>
+                            <p>
+                                Join us!
+                            </p>
+<!--                            <div class="form">-->
+<!--                                <input class="form-control" placeholder="Email goes here">-->
+<!--                                <button class="btn">Submit</button>-->
+<!--                            </div>-->
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-3 col-xs-12 col-lg-2">
-                    <div class="single-footer">
-                        <h2>More links</h2>
-                        <ul class="list">
-                            <li><a href="{% url 'frontpages-home' %}">Home</a></li>
-                            <li><a href="{% url 'frontpages-about' %}">About us</a></li>
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a href="{% url 'register' %}">Sign up</a></li>
-<!--                            <li><a href="#">Pricing & plans</a></li>-->
-<!--                            <li><a href="#">Calculate</a></li>-->
-                        </ul>
+            </div>
+            <div class="container copyright">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; <a href="#">Runner</a>, All Right Reserved.</p>
                     </div>
-                </div>
-<!--                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">-->
-<!--                    <div class="single-footer">-->
-<!--                        <h2>We Accepts</h2>-->
-<!--                        <a href="#"><img src="img/cards_credt_1.png" alt="#"></a>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">-->
-<!--                    <div class="single-footer clearfix">-->
-<!--                        <h2>news latters</h2>-->
-<!--                        <input type="text" class="form-control">-->
-<!--                        <input type="submit" class="submt-button" value="submit">-->
-<!--                    </div>-->
-<!--                </div>-->
-            </div>
-        </div>
-    </section>
-    <!--end of footer area-->
-
-    <!--   start copyright text area-->
-    <div class="copyright-area">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 col-md-6 text-left">
-                <div class="footer-text">
-                    <p>Copyright @Runner, All Rights Reserved</p>
-                </div>
-            </div>
-            <div class="col-xs-12  col-sm-6 col-md-6 text-right">
-                <div class="footer-text">
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    <a href="#" class="fa fa-linkedin"></a>
-                    <a href="#" class="fa fa-google-plus"></a>
-                    <a href="#" class="fa fa-dribbble"></a>
+                    <div class="col-md-6">
+                        <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--    end of copyright text area-->
+        <!-- Footer End -->
 
-    <!--  jquery.min.js  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <!--    bootstrap.min.js-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <!--    jquery.sticky.js-->
-    <script src="{% static 'frontpages/js/jquery.sticky.js' %}"></script>
-    <!--  owl.carousel.min.js  -->
-    <script src="{% static 'frontpages/js/jquery.meanmenu.js' %}"></script>
-    <script src="{% static 'frontpages/js/owl.carousel.min.js' %}"></script>
-    <!--  jquery.mb.YTPlayer.min.js   -->
-    <script src="{% static 'frontpages/js/jquery.mb.YTPlayer.min.js' %}"></script>
-    <!--    slick.min.js-->
-    <script src="{% static 'frontpages/js/slick.min.js' %}"></script>
-    <!--    jquery.nav.js-->
-    <script src="{% static 'frontpages/js/jquery.nav.js' %}"></script>
-    <!--jquery waypoints js-->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-    <!--    jquery counterup js-->
-    <script src="{% static 'frontpages/js/jquery.counterup.min.js' %}"></script>
-    <!--    main.js-->
-    <script src="{% static 'frontpages/js/main.js' %}"></script>
-</body>
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'frontpages/lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/counterup/counterup.min.js' %}"></script>
+        
+        <!-- Contact Javascript File -->
+        <script src="{% static 'frontpages/mail/jqBootstrapValidation.min.js' %}"></script>
+        <script src="{% static 'frontpages/mail/contact.js' %}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{% static 'frontpages/js/main.js' %}"></script>
+    </body>
 </html>

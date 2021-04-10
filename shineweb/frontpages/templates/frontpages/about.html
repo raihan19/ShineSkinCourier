@@ -1,274 +1,755 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Runner</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Consulting Website Template Free Download" name="keywords">
+        <meta content="Consulting Website Template Free Download" name="description">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link href="{% static 'frontpages/img/favicon.ico' %}" rel="icon">
 
-    <title>Runner</title>
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{% static 'frontpages/fonts/stylesheet.css' %}" rel="stylesheet">
-    <link href="{% static 'frontpages/css/reset.css' %}" rel="stylesheet">
-    <link href="{% static 'frontpages/css/slick.css' %}" rel="stylesheet">
-    <link href="{% static 'frontpages/css/jquery.mb.YTPlayer.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'frontpages/css/meanmenu.css' %}">
-    <link href="{% static 'frontpages/css/owl.carousel.css' %}" rel="stylesheet">
-    <link href="{% static 'frontpages/style.css' %}" rel="stylesheet">
-    <link href="{% static 'frontpages/css/responsive.css' %}" rel="stylesheet">
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'frontpages/lib/animate/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'frontpages/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
 
-    <!--[if lt IE 9]>
-        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <!-- Template Stylesheet -->
+        <link href="{% static 'frontpages/css/style.css' %}" rel="stylesheet">
+    </head>
 
-</head>
-
-<body class="js">
-
-    <div id="preloader"></div>
-
-    <section class="about-us">
-        <div class="logo_menu" id="sticker">
-            <div class="container">
+    <body>
+        <!-- Top Bar Start -->
+        <div class="top-bar d-none d-md-block">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-2 col-lg-2 col-sm-2 col-xs-6">
-                        <div class="logo">
-                            <a href="{% url 'frontpages-home' %}"><img src="{% static 'frontpages/img/logo.png' %}" alt="logo"></a>
+<!--                    <div class="col-md-8">-->
+<!--                        <div class="top-bar-left">-->
+<!--                            <div class="text">-->
+<!--                                <i class="far fa-clock"></i>-->
+<!--                                <h2>8:00 - 9:00</h2>-->
+<!--                                <p>Mon - Fri</p>-->
+<!--                            </div>-->
+<!--                            <div class="text">-->
+<!--                                <i class="fa fa-phone-alt"></i>-->
+<!--                                <h2>+123 456 7890</h2>-->
+<!--                                <p>For Appointment</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="col-md-12">
+                        <div class="top-bar-right">
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="signup mobMenuCol">
-                        <nav class="navbar">
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                                <ul class="nav navbar-nav navbar-right menu">
-                                    <li><a href="{% url 'frontpages-home' %}">Home</a></li>
-                                    <li><a href="{% url 'frontpages-about' %}">About</a></li>
-                                    {% if user.is_authenticated %}
-                                        <li><a href="{% url 'order-create' %}">New Order</a></li>
-                                        <li><a href="{% url 'order-list' %}">View Order</a></li>
-                                        <li><a class="nav-item nav-link" href="{% url 'order-transaction-list' %}">View Transaction</a></li>
-                                        <li><a href="{% url 'profile' %}">Profile</a></li>
-                                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                                    {% else %}
-                                        <li><a href="{% url 'login' %}">Login</a></li>
-                                        <li><a href="{% url 'register' %}">Register</a></li>
-                                    {% endif %}
-                                </ul>
-                            <!-- /.navbar-collapse -->
-                        </nav>
-                    </div>
-<!--                    <div class="col-md-3 col-sm-3 col-xs-4 col-lg-3 signup">-->
-<!--                        <ul class="nav navbar-nav">-->
-<!--                            {% if user.is_authenticated %}-->
-<!--                                <li><a href="{% url 'profile' %}">Profile</a></li>-->
-<!--                                <li><a href="{% url 'logout' %}">Logout</a></li>-->
-<!--                            {% else %}-->
-<!--                                <li><a href="{% url 'login' %}">Login</a></li>-->
-<!--                                <li><a href="{% url 'register' %}">Sign Up</a></li>-->
-<!--                            {% endif %}-->
-<!--                        </ul>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>
-    </section>
+        <!-- Top Bar End -->
 
-    <section class="about_us_area" id="about">
-        <div class="container">
-            <div class="row page-title">
-                <div class="col-md-6 col-sm-6 col-xs-6 text-left">
-                    <div class="about_us_content_title">
-                        <h2>About us</h2>
-                        <h5>Runner Courier Service Ltd is the best E-commerce logistics solution in Bangladesh with the
-                            experience, capabilities, functional expertise, technological embedment for integrated
-                            logistics solutions or One Umbrella Solutions to the e-commerce industry.</h5>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-<!--                    <div class="about_us_content_title">-->
-<!--                        <ul class="breadcrumbs">-->
-<!--                            <li><a href="#">home</a></li>-->
-<!--                            <li><a href="#">about</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="about_us_content">
-                        <p>Runner Courier Service Ltd aims to aid the expanding e-commerce sector of Bangladesh
-                            providing tech-first logistics support with exclusive features and talented workforce,
-                            Runner Courier Service Ltd set to give the delivery service industry of Bangladesh a
-                            brand new pace.
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <div class="container-fluid">
+                <a href="{% url 'frontpages-home' %}" class="navbar-brand">Runner</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            Our service to ensure maximum comfort and peace of mind for the online merchants, we have
-                            built a basket of tailored features and services. The products in this basket range from
-                            picking up products from merchants’ address to collecting COD amount from customers’
-                            doorstep and depositing back to merchants’ account - so that the merchant can completely
-                            focus on growing and strengthening his core business without worrying about the logistics.
-
-                            We are integrating the merchants in a smart software system, where you can manage all
-                            activities of the delivery.
-
-                            The first courier company in Bangladesh where everything is managed by automated software.
-                            Our goal, mission & vision is to provide best quality service for satisfying customers.
-                        </p>
-                        <a href="#">read more <span  class="fa fa-long-arrow-right"></span></a>
-                    </div>
-                </div>
-                <div class="col-md-offset-1 col-sm-6 col-md-5">
-                    <div class="about_car">
-                        <img src="{% static 'frontpages/img/rsz_img_9492.png' %}" alt="car">
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="{% url 'frontpages-home' %}" class="nav-item nav-link active">Home</a>
+                        <a href="{% url 'frontpages-about' %}" class="nav-item nav-link">About</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'order-create' %}" class="nav-item nav-link">New Order</a>
+                            <a href="{% url 'order-list' %}" class="nav-item nav-link">View Order</a>
+                            <a href="{% url 'order-transaction-list' %}" class="nav-item nav-link">View Transaction</a>
+                            <a href="{% url 'profile' %}" class="nav-item nav-link">Profile</a>
+                            <a href="{% url 'logout' %}" class="nav-item nav-link">Logout</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="nav-item nav-link">Login</a>
+                            <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+                        {% endif %}
+<!--                        <a href="advisor.html" class="nav-item nav-link">Advisor</a>-->
+<!--                        <a href="review.html" class="nav-item nav-link">Review</a>-->
+<!--                        <div class="nav-item dropdown">-->
+<!--                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>-->
+<!--                            <div class="dropdown-menu">-->
+<!--                                <a href="blog.html" class="dropdown-item">Blog Page</a>-->
+<!--                                <a href="single.html" class="dropdown-item">Single Page</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+        <!-- Nav Bar End -->
 
 
-    <!--start about bottom area-->
-    <section class="about-us-bottom-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="single-about-us-bottom">
-                        <h4>What we do</h4>
-                        <p>We provide service to both merchants and customers.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="single-about-us-bottom">
-                        <h4>Our history</h4>
-                        <p>Launched in 2021, this company has been marching on ever since.</p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4">
-                    <div class="single-about-us-bottom">
-                        <h4>Our mission</h4>
-                        <p>To provide service all over Bangladesh.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--    start client say area-->
-
-<!--    <section class="client-area" id="blog">-->
-<!--        <div class="container">-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-5 col-xs-12 col-sm-8">-->
-<!--                    <div class="slients-title">-->
-<!--                        <h2>What our clients say</h2>-->
-<!--                        <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat,</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
-<!--                <div class="col-md-6 col-sm-6 col-xs-12">-->
-<!--                    <div class="single-clients">-->
-<!--                        <div class="client-img">-->
-<!--                            <img src="img/client.jpg" alt="client">-->
+<!--        &lt;!&ndash; Carousel Start &ndash;&gt;-->
+<!--        <div class="carousel">-->
+<!--            <div class="container-fluid">-->
+<!--                <div class="owl-carousel">-->
+<!--                    <div class="carousel-item">-->
+<!--                        <div class="carousel-img">-->
+<!--                            <img src="{% static 'frontpages/img/rsz_0001.png' %}" alt="Image">-->
 <!--                        </div>-->
-<!--                        <div class="client-details">-->
-<!--                            <p>“Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore magna aliquam.”</p>-->
-<!--                            <h4>John Doe<span>Student</span></h4>-->
+<!--                        <div class="carousel-text">-->
+<!--                            <h1>Welcome to Runner</h1>-->
+<!--                            <p>-->
+<!--                                Get the fastest service for your product-->
+<!--                            </p>-->
+<!--&lt;!&ndash;                            <div class="carousel-btn">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="col-md-6 col-sm-6 col-xs-12">-->
-<!--                    <div class="single-clients">-->
-<!--                        <div class="client-img">-->
-<!--                            <img src="img/client-2.jpg" alt="client">-->
+<!--                    <div class="carousel-item">-->
+<!--                        <div class="carousel-img">-->
+<!--                            <img src="{% static 'frontpages/img/rsz_img_9478.png' %}" alt="Image">-->
 <!--                        </div>-->
-<!--                        <div class="client-details">-->
-<!--                            <p>“Lorem ipsum dolor sit amet, consectetuer adipis cing elit, sed diam nonummy nibh euismod tinci dunt ut laoreet dolore magna aliquam.”</p>-->
-<!--                            <h4>John Doe<span>Student</span></h4>-->
+<!--                        <div class="carousel-text">-->
+<!--                            <h1>Your Success Our Achievement</h1>-->
+<!--                            <p>-->
+<!--                                Join us today-->
+<!--                            </p>-->
+<!--&lt;!&ndash;                            <div class="carousel-btn">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="carousel-item">-->
+<!--                        <div class="carousel-img">-->
+<!--                            <img src="{% static 'frontpages/img/rsz_img_9559.png' %}" alt="Image">-->
+<!--                        </div>-->
+<!--                        <div class="carousel-text">-->
+<!--                            <h1>Your Business Our Effort</h1>-->
+<!--                            <p>-->
+<!--                                Make the most of it-->
+<!--                            </p>-->
+<!--&lt;!&ndash;                            <div class="carousel-btn">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--    </section>-->
+<!--        &lt;!&ndash; Carousel End &ndash;&gt;-->
 
-
-    <!--start footer area-->
-
-    <section class="footer-area" id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-12 col-lg-4">
-                    <div class="single-footer">
-                        <h2>Join today!</h2>
-                        <p>Explore the world of Runner</p>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-3 col-xs-12 col-lg-2">
-                    <div class="single-footer">
-                        <h2>More links</h2>
-                        <ul class="list">
-                            <li><a href="{% url 'frontpages-home' %}">Home</a></li>
-                            <li><a href="{% url 'frontpages-about' %}">About us</a></li>
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a href="{% url 'register' %}">Sign up</a></li>
-<!--                            <li><a href="#">Pricing & plans</a></li>-->
-<!--                            <li><a href="#">Calculate</a></li>-->
-                        </ul>
-                    </div>
-                </div>
-<!--                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">-->
-<!--                    <div class="single-footer">-->
-<!--                        <h2>We Accepts</h2>-->
-<!--                        <a href="#"><img src="img/cards_credt_1.png" alt="#"></a>-->
+<!--        &lt;!&ndash; Video Modal Start&ndash;&gt;-->
+<!--        <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-body">-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>        -->
+<!--                        &lt;!&ndash; 16:9 aspect ratio &ndash;&gt;-->
+<!--                        <div class="embed-responsive embed-responsive-16by9">-->
+<!--                            <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>-->
+<!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div class="col-md-3 col-sm-3 col-xs-12 col-lg-3">-->
-<!--                    <div class="single-footer clearfix">-->
-<!--                        <h2>news latters</h2>-->
-<!--                        <input type="text" class="form-control">-->
-<!--                        <input type="submit" class="submt-button" value="submit">-->
+<!--            </div>-->
+<!--        </div> -->
+<!--        &lt;!&ndash; Video Modal End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Fact Start &ndash;&gt;-->
+<!--        <div class="fact">-->
+<!--            <div class="container">-->
+<!--                <div class="row align-items-center">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="fact-item">-->
+<!--                            <img src="{% static 'frontpages/img/icon-4.png' %}" alt="Icon">-->
+<!--                            <h2>Qualified Team</h2>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="fact-item">-->
+<!--                            <img src="{% static 'frontpages/img/icon-1.png' %}" alt="Icon">-->
+<!--                            <h2>Individual Approach</h2>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="fact-item">-->
+<!--                            <img src="{% static 'frontpages/img/icon-8.png' %}" alt="Icon">-->
+<!--                            <h2>100% Success</h2>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="fact-item">-->
+<!--                            <img src="{% static 'frontpages/img/icon-6.png' %}" alt="Icon">-->
+<!--                            <h2>100% Satisfaction</h2>-->
+<!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-            </div>
-        </div>
-    </section>
-    <!--end of footer area-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Fact Start &ndash;&gt;-->
 
-    <!--   start copyright text area-->
-    <div class="copyright-area">
-        <div class="container">
-            <div class="col-xs-12 col-sm-6 col-md-6 text-left">
-                <div class="footer-text">
-                    <p>Copyright @Runner, All Rights Reserved</p>
+
+        <!-- About Start -->
+        <div class="about">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="about-img">
+                            <div class="about-img-1">
+                                <img src="{% static 'frontpages/img/rsz_img_9527.png' %}" alt="Image">
+                            </div>
+                            <div class="about-img-2">
+                                <img src="{% static 'frontpages/img/rsz_img_9467.png' %}" alt="Image">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="section-header">
+                            <p>Learn About Us</p>
+                            <h2>Years of Experience</h2>
+                        </div>
+                        <div class="about-text">
+                            <p>
+                                Runner Courier Service Ltd is the best E-commerce logistics solution in Bangladesh with the
+                                experience, capabilities, functional expertise, technological embedment for integrated
+                                logistics solutions or One Umbrella Solutions to the e-commerce industry.
+                            </p>
+                            <p>
+                                Runner Courier Service Ltd aims to aid the expanding e-commerce sector of Bangladesh
+                                providing tech-first logistics support with exclusive features and talented workforce,
+                                Runner Courier Service Ltd set to give the delivery service industry of Bangladesh a
+                                brand new pace.
+
+                                Our service to ensure maximum comfort and peace of mind for the online merchants, we have
+                                built a basket of tailored features and services. The products in this basket range from
+                                picking up products from merchants’ address to collecting COD amount from customers’
+                                doorstep and depositing back to merchants’ account - so that the merchant can completely
+                                focus on growing and strengthening his core business without worrying about the logistics.
+
+                                We are integrating the merchants in a smart software system, where you can manage all
+                                activities of the delivery.
+
+                                The first courier company in Bangladesh where everything is managed by automated software.
+                                Our goal, mission & vision is to provide best quality service for satisfying customers.
+                            </p>
+                            <a class="btn" href="">Learn More</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12  col-sm-6 col-md-6 text-right">
-                <div class="footer-text">
-                    <a href="#" class="fa fa-facebook"></a>
-                    <a href="#" class="fa fa-twitter"></a>
-                    <a href="#" class="fa fa-linkedin"></a>
-                    <a href="#" class="fa fa-google-plus"></a>
-                    <a href="#" class="fa fa-dribbble"></a>
+        </div>
+        <!-- About End -->
+
+
+<!--        &lt;!&ndash; Service Start &ndash;&gt;-->
+<!--        <div class="service">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Consulting Services</p>-->
+<!--                    <h2>Our Best Consulting Services</h2>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-1.png" alt="Icon">-->
+<!--                            <h3>Business Strategy</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-2.png" alt="Icon">-->
+<!--                            <h3>Project Management</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-3.png" alt="Icon">-->
+<!--                            <h3>Market Research</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-4.png" alt="Icon">-->
+<!--                            <h3>Human Resource</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-5.png" alt="Icon">-->
+<!--                            <h3>Online Business</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-6.png" alt="Icon">-->
+<!--                            <h3>Capital Management</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-7.png" alt="Icon">-->
+<!--                            <h3>Business Insurance</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="service-item">-->
+<!--                            <img src="img/icon-8.png" alt="Icon">-->
+<!--                            <h3>Online Marketing</h3>-->
+<!--                            <p>-->
+<!--                                Lorem ipsum dolor sit amet elit. Phasellus nec pretium ornare velit non-->
+<!--                            </p>-->
+<!--                            <a href="">Read More</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Service End &ndash;&gt;-->
+
+
+        <!-- Feature Start -->
+<!--        <div class="feature">-->
+<!--            <div class="container">-->
+<!--                <div class="row align-items-end">-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="feature-img">-->
+<!--                            <img src="{% static 'frontpages/img/rsz_img_9511-removebg-preview.png' %}" alt="Image">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <div class="section-header">-->
+<!--                            <p>Our Feature</p>-->
+<!--                            <h2>Why Choose Us?</h2>-->
+<!--                        </div>-->
+<!--                        <p>-->
+<!--                            We are best courier service provide in Bangladesh. Our service is unparalleled to any contemporary services. Merchant will get the best cut here where cost is low for the customer.-->
+<!--                        </p>-->
+<!--                        <div class="row counters">-->
+<!--                            <div class="col-6">-->
+<!--                                <i class="fa fa-user"></i>-->
+<!--                                <div class="counters-text">-->
+<!--                                    <h2 data-toggle="counter-up">100</h2>-->
+<!--                                    <p>Our Staffs</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6">-->
+<!--                                <i class="fa fa-users"></i>-->
+<!--                                <div class="counters-text">-->
+<!--                                    <h2 data-toggle="counter-up">200</h2>-->
+<!--                                    <p>Our Clients</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6">-->
+<!--                                <i class="fa fa-check"></i>-->
+<!--                                <div class="counters-text">-->
+<!--                                    <h2 data-toggle="counter-up">300</h2>-->
+<!--                                    <p>Completed Deliveries</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6">-->
+<!--                                <i class="fa fa-running"></i>-->
+<!--                                <div class="counters-text">-->
+<!--                                    <h2 data-toggle="counter-up">400</h2>-->
+<!--                                    <p>Running Deliveries</p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Feature End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Testimonial Start &ndash;&gt;-->
+<!--        <div class="testimonial">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Testimonial Carousel</p>-->
+<!--                    <h2>100% Positive Customer Reviews</h2>-->
+<!--                </div>-->
+<!--                <div class="owl-carousel testimonials-carousel">-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-1.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-2.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Phasellus pellentesque tempus pretium. Quisque in enim sit amet purus venenatis porttitor sed non velit. Vivamus vehicula finibus-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-3.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                    <div class="testimonial-item">-->
+<!--                        <img src="img/testimonial-4.jpg" alt="Image">-->
+<!--                        <p>-->
+<!--                            Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna-->
+<!--                        </p>-->
+<!--                        <h2>Client Name</h2>-->
+<!--                        <h3>Profession</h3>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Testimonial End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Team Start &ndash;&gt;-->
+<!--        <div class="team">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Meet Our Advisors</p>-->
+<!--                    <h2>Our Professional Consulting Team</h2>-->
+<!--                </div>-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-1.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Donald John</h2>-->
+<!--                                <p>Founder & CEO</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-2.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Adam Phillips</h2>-->
+<!--                                <p>Chef Executive</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-3.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>Thomas Olsen</h2>-->
+<!--                                <p>Chef Advisor</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-3 col-md-6">-->
+<!--                        <div class="team-item">-->
+<!--                            <div class="team-img">-->
+<!--                                <img src="img/team-4.jpg" alt="Team Image">-->
+<!--                            </div>-->
+<!--                            <div class="team-text">-->
+<!--                                <h2>James Alien</h2>-->
+<!--                                <p>Advisor</p>-->
+<!--                                <div class="team-social">-->
+<!--                                    <a href=""><i class="fab fa-twitter"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-facebook-f"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-linkedin-in"></i></a>-->
+<!--                                    <a href=""><i class="fab fa-instagram"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Team End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Contact Start &ndash;&gt;-->
+<!--        <div class="contact">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Get In Touch</p>-->
+<!--                    <h2>Get In Touch For Any Query</h2>-->
+<!--                </div>-->
+<!--                <div class="row align-items-center">-->
+<!--                    <div class="col-md-5">-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-map-marker-alt"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Our Head Office</h3>-->
+<!--                                <p>123 Street, New York, USA</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-phone-alt"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Call for Help</h3>-->
+<!--                                <p>+012 345 6789</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="contact-info">-->
+<!--                            <div class="contact-icon">-->
+<!--                                <i class="fa fa-envelope"></i>-->
+<!--                            </div>-->
+<!--                            <div class="contact-text">-->
+<!--                                <h3>Email for Information</h3>-->
+<!--                                <p>info@example.com</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-7">-->
+<!--                        <div class="contact-form">-->
+<!--                            <div id="success"></div>-->
+<!--                            <form name="sentMessage" id="contactForm" novalidate="novalidate">-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div class="control-group">-->
+<!--                                    <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div class="control-group">-->
+<!--                                    <textarea class="form-control" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>-->
+<!--                                    <p class="help-block text-danger"></p>-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <button class="btn" type="submit" id="sendMessageButton">Send Message</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Contact End &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; Blog Start &ndash;&gt;-->
+<!--        <div class="blog">-->
+<!--            <div class="container">-->
+<!--                <div class="section-header">-->
+<!--                    <p>Consulting Blog</p>-->
+<!--                    <h2>Latest From Our Consulting Blog</h2>-->
+<!--                </div>-->
+<!--                <div class="owl-carousel blog-carousel">-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-1.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
+<!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-2.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
+<!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="blog-item">-->
+<!--                        <div class="blog-img">-->
+<!--                            <img src="img/blog-3.jpg" alt="Blog">-->
+<!--                        </div>-->
+<!--                        <div class="blog-content">-->
+<!--                            <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>-->
+<!--                            <div class="blog-meta">-->
+<!--                                <i class="fa fa-list-alt"></i>-->
+<!--                                <a href="">Category</a>-->
+<!--                                <i class="fa fa-calendar-alt"></i>-->
+<!--                                <p>01-Jan-2045</p>-->
+<!--                            </div>-->
+<!--                            <div class="blog-text">-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor-->
+<!--                                </p>-->
+<!--                                <a class="btn" href="">Read More</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Blog End &ndash;&gt;-->
+
+
+        <!-- Footer Start -->
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="footer-contact">
+                                    <h2>Our Head Office</h2>
+                                    <p><i class="fa fa-map-marker-alt"></i>Badda, Dhaka, Bangladesh</p>
+                                    <p><i class="fa fa-phone-alt"></i>01744219948</p>
+                                    <p><i class="fa fa-envelope"></i>runnercourier@gmail.com</p>
+                                    <div class="footer-social">
+                                        <a href=""><i class="fab fa-twitter"></i></a>
+                                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a href=""><i class="fab fa-youtube"></i></a>
+                                        <a href=""><i class="fab fa-instagram"></i></a>
+                                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="footer-link">
+                                    <h2>Quick Links</h2>
+                                    <a href="#">Terms of use</a>
+                                    <a href="#">Privacy policy</a>
+                                    <a href="#">Cookies</a>
+                                    <a href="#">Help</a>
+                                    <a href="#">FQAs</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="footer-newsletter">
+                            <h2>What are you waiting for?</h2>
+                            <p>
+                                Join us!
+                            </p>
+<!--                            <div class="form">-->
+<!--                                <input class="form-control" placeholder="Email goes here">-->
+<!--                                <button class="btn">Submit</button>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container copyright">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; <a href="#">Runner</a>, All Right Reserved.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- Footer End -->
 
+        <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{% static 'frontpages/lib/easing/easing.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/waypoints/waypoints.min.js' %}"></script>
+        <script src="{% static 'frontpages/lib/counterup/counterup.min.js' %}"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-    <script src="{% static 'frontpages/js/jquery.counterup.min.js' %}"></script>
-    <script src="{% static 'frontpages/js/jquery.sticky.js' %}"></script>
-    <script src="{% static 'frontpages/js/jquery.meanmenu.js' %}"></script>
-    <script src="{% static 'frontpages/js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'frontpages/js/slick.min.js' %}"></script>
-    <script src="{% static 'frontpages/js/jquery.nav.js' %}"></script>
-    <script src="{% static 'frontpages/js/jquery.mb.YTPlayer.min.js' %}"></script>
-    <script src="{% static 'frontpages/js/main.js' %}"></script>
-</body>
+        <!-- Contact Javascript File -->
+        <script src="{% static 'frontpages/mail/jqBootstrapValidation.min.js' %}"></script>
+        <script src="{% static 'frontpages/mail/contact.js' %}"></script>
 
+        <!-- Template Javascript -->
+        <script src="{% static 'frontpages/js/main.js' %}"></script>
+    </body>
 </html>
