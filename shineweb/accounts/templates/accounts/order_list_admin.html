@@ -41,6 +41,7 @@
 					<th>Order ID</th>
 					<th>Deliveryman</th>
 					<th>Area</th>
+					<th>View</th>
 					<th>Update</th>
 					<th>Remove</th>
 				</tr>
@@ -62,6 +63,7 @@
 						<td>{{order.id}}</td>
 						<td>{{order.assigned_to_deliveryman}}</td>
 						<td>{{order.delivery_area}}</td>
+						<td><a class="btn btn-sm btn-info" href="{% url 'customer' order.id %}">View</a></td>
 						<td><a class="btn btn-sm btn-info" href="{% url 'update_order' order.id %}">Update</a></td>
 						<td><a class="btn btn-sm btn-danger" href="{% url 'delete_order' order.id %}">Delete</a></td>
 					</tr>

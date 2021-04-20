@@ -20,6 +20,11 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Admin Site Config
+admin.sites.AdminSite.site_header = 'Runner admin'
+admin.sites.AdminSite.site_title = 'Runner admin'
+admin.sites.AdminSite.index_title = 'Runner admin'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', reg_views.register, name='register'),
