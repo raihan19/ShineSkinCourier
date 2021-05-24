@@ -21,7 +21,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import OrderForm, deliveryManForm
 from django.db.models import Sum
 from registrationUser.models import regProfile
-
+from django.template.loader import get_template
+import pdfkit
+import os, subprocess
 
 # @unauthenticated_user
 # def registerPage(request):
@@ -302,3 +304,26 @@ def deleteOrder(request, pk):
         return redirect(customer_url)
 
     return render(request, 'accounts/delete_item.html', {'item': order})
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['admin'])
+def newcustomer(request, pk):
+    newcustomervar = Order.objects.get(id=pk)
+    template = get_template('accounts/detail.html')
+    html = template.render({'newcustomer': newcustomervar})
+    options = {
+        'page-size': 'Letter',
+        'encoding': "UTF-8",
+    }
+    # config = pdfkit.configuration(wkhtmltopdf='./bin/wkhtmltopdf-pack')
+    WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')],
+                                       stdout=subprocess.PIPE).communicate()[0].strip()
+    config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+    pdf = pdfkit.from_string(html, False, options, configuration=config)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename = "order_pdf.pdf"'
+    return response
+    # context = {'newcustomer': newcustomervar,}
+    # return render(request, 'accounts/detail.html', context)
+
